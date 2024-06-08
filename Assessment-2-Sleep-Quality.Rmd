@@ -18,3 +18,27 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+
+#### Section 1: Loading the libraries
+```{r Loading the libraries}
+# Loading the libraries
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+library(scales)
+library(RColorBrewer)
+library(viridis)
+library(htmltools)
+
+```
+
+
+
+
+```{r}
+raw_data <- read.csv("Sleep_Efficiency.csv",header = TRUE)
+```
+
+
