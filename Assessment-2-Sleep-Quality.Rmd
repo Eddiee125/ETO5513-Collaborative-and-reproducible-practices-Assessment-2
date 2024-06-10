@@ -85,6 +85,17 @@ print(summary(raw_data))
 Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine consumption (ranging from 0 to 200 mg), alcohol consumption (0 to 5 units), smoking status, and exercise frequency (0 to 5 days per week). The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering valuable insights into how different behaviors and characteristics impact sleep patterns and efficiency.
 
 
+**Important metrics to understand:**
+
+As mentioned by the Author in the Intro to the data:
+
+
+- _"The "Sleep efficiency" feature is a measure of the proportion of time spent in bed that is actually spent asleep."_
+
+- _"The "REM sleep percentage", "Deep sleep percentage", and "Light sleep percentage" features indicate the amount of time each subject spent in each stage of sleep."_
+
+- _"The "Awakenings" feature records the number of times each subject wakes up during the night. "_
+
 
 
 
@@ -105,4 +116,4 @@ summary(model)
 
 #### Citations:
 
-https://www.kaggle.com/equilibriumm
+Equilibrium. (2023). *Sleep efficiency* [Data set]. Kaggle. [https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency](https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency)

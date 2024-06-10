@@ -422,6 +422,13 @@ display: none;
 </ul>
 <p>The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, which ranges from 9 to 69 years with an average of 40.29 years, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration (ranging from 5 to 10 hours with an average of 7.47 hours), and sleep efficiency (ranging from 50% to 99% with an average of 78.89%). Additionally, the dataset measures the percentage of sleep spent in different stages: REM sleep (15% to 30%), deep sleep (18% to 75%), and light sleep (7% to 63%). The number of awakenings during the night is also recorded, with values ranging from 0 to 4 times, and an average of 1.64 times.</p>
 <p>Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine consumption (ranging from 0 to 200 mg), alcohol consumption (0 to 5 units), smoking status, and exercise frequency (0 to 5 days per week). The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering valuable insights into how different behaviors and characteristics impact sleep patterns and efficiency.</p>
+<p><strong>Important metrics to understand:</strong></p>
+<p>As mentioned by the Author in the Intro to the data:</p>
+<ul>
+<li><p><em>“The”Sleep efficiency” feature is a measure of the proportion of time spent in bed that is actually spent asleep.”</em></p></li>
+<li><p><em>“The”REM sleep percentage”, “Deep sleep percentage”, and “Light sleep percentage” features indicate the amount of time each subject spent in each stage of sleep.”</em></p></li>
+<li><p><em>“The”Awakenings” feature records the number of times each subject wakes up during the night. “</em></p></li>
+</ul>
 <pre><code>## 
 ## Call:
 ## lm(formula = Sleep.efficiency ~ Age + Caffeine.consumption + 
@@ -448,7 +455,7 @@ display: none;
 </div>
 <div id="citations" class="section level4">
 <h4>Citations:</h4>
-<p><a href="https://www.kaggle.com/equilibriumm" class="uri">https://www.kaggle.com/equilibriumm</a></p>
+<p>Equilibrium. (2023). <em>Sleep efficiency</em> [Data set]. Kaggle. <a href="https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency">https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency</a></p>
 </div>
 
 
