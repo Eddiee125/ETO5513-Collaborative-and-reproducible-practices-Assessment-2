@@ -99,7 +99,13 @@ As mentioned by the Author in the Intro to the data:
 
 
 
+### Gender and excercise variables:
 
+
+In order to understand the data a sleeping efficiency, which was defined by the author as ***"A measure of the proportion of time spent in bed that is actually spent asleep."***, we decided to use a simple linear regression model in order to find the relationships between the habits of an adult person, and the consequences on the mentioned sleeping efficiency.
+
+
+Here, the intercept, or dependent variable will be "Sleep Efficiency":
 
 
 ```{r Cleaning data}
@@ -107,11 +113,89 @@ As mentioned by the Author in the Intro to the data:
 cleaned_data <- na.omit(raw_data)
 
 # Fit a linear model to predict Sleep.efficiency
-model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender, data = cleaned_data)
+Linear_model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender, data = cleaned_data)
 
 # Get a summary of the model
-summary(model)
+summary(Linear_model)
 ```
+
+
+**Observations:**
+
+The linear model analysis reveals several significant relationships between the predictors and sleep efficiency. The model explains about 25.84% of the variability in sleep efficiency (R-squared = 0.2584). Key predictors such as age, alcohol consumption, and exercise frequency have significant effects on sleep efficiency, while caffeine consumption is not a significant predictor. The intercept indicates the baseline sleep efficiency when all predictors are at zero, and the overall model is statistically significant (p-value < 2.2e-16).
+
+**Specific Observations:**
+
+ - Gender:
+Coefficient for Gender (Male): -0.0219210
+Interpretation: On average, males have a sleep efficiency that is approximately 2.19% lower than females, although this effect is only marginally significant (p = 0.094462).
+Significance: The marginal significance suggests that while there is a difference in sleep efficiency between genders, it is not as strongly supported by the data compared to other predictors.
+
+- Exercise Frequency
+Coefficient for Exercise Frequency: 0.0261673
+
+**Interpretation:** Each additional day of exercise per week is associated with a 2.62% increase in sleep efficiency, holding other factors constant.
+
+**Significance:** This relationship is highly significant (p = 1.72e-09), indicating a strong positive impact of exercise on sleep efficiency.
+
+**Summary:**
+The linear model highlights that while gender has a marginal impact on sleep efficiency, exercise frequency has a robust positive effect. These insights can inform strategies to improve sleep quality, particularly emphasizing the benefits of regular exercise.
+
+
+
+
+After understanding the relevant variables that affect the "Sleeping Efficiency" it is important to visualize how the current information is, and then proceed to work on more relationships with the help of the model elaborated:
+
+```{r Visualizing the data Gender-Excercise}
+gender_exercise <- cleaned_data %>%
+    select(Gender, Sleep.efficiency, Exercise.frequency)
+
+
+summary_by_gender <- gender_exercise %>%
+    group_by(Gender) %>%
+    summarise(
+        Min_Sleep_Efficiency = min(Sleep.efficiency, na.rm = TRUE),
+        Max_Sleep_Efficiency = max(Sleep.efficiency, na.rm = TRUE),
+        Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
+    )
+
+```
+
+```{r Printint the tables}
+kable(summary_by_gender, caption = "Summary of Sleep Efficiency by Gender")
+```
+
+Now let's have a look at the distribution of exercise frequency 
+
+```{r Histogram visualizing the distribution, fig.align='right', fig.align='center'}
+# Create histograms for each exercise frequency, faceted by gender
+ggplot(gender_exercise, aes(x = Sleep.efficiency, fill = Gender)) +
+  geom_histogram(binwidth = 0.05, alpha = 0.6, position = "identity") +
+  facet_wrap(~ Exercise.frequency) +
+  labs(title = "Distribution of Sleep Efficiency by Exercise Frequency and Gender",
+       x = "Sleep Efficiency",
+       y = "Count") +
+  theme_minimal()
+
+```
+
+
+
+Now, if we were to plot the information for sleeping quality vs exercise levels by gender, it would look like this:
+
+```{r Plotting the relationship, fig.align='center'}
+Gender_Exercise_SE_Plot <- 
+    ggplot(gender_exercise, aes(x = Exercise.frequency, y = Sleep.efficiency, color = Gender)) +
+    geom_point()+
+    labs( title = "Relationship between excercise and Sleep Efficiency by Gender",
+          x = "Exercise Frequency",
+          y = "Sleep Efficiency",
+          color = "Gender") +
+    theme_minimal()
+
+print(Gender_Exercise_SE_Plot)
+```
+
 
 
 #### Citations:
