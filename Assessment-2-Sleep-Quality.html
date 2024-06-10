@@ -345,7 +345,111 @@ display: none;
 </div>
 
 
-
+<div id="section-1-loading-the-libraries" class="section level4">
+<h4>Section 1: Loading the libraries</h4>
+</div>
+<div id="research-question" class="section level4">
+<h4>Research Question:</h4>
+<p>What is the impact of various lifestyle choices on sleep quality among adults?</p>
+</div>
+<div id="introduction-to-the-data-set." class="section level4">
+<h4>Introduction to the data set.</h4>
+<p>The data set utilized for this work was obtained from <a href="https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency">Kaggle</a>.</p>
+<p>Kaggle is a website and collection of services for data science. It provides a platform for users to find and share datasets, as well as compete in machine learning competitions. Since the business <em>“strongly encourage dataset publishers to share their data in an accessible, non-proprietary format if possible”</em>, the sleep quality data set does mentions the license is under the Authors, for which this case is Equilibrium, but there is no more information to be found in the Equilibrium’s Bio. Nonetheless, this data set has a 10.0 out of 10.0 grade on usability rated by Kaggle users, and it can be clearly identified that the data set has been used multiple times by different users for academic purposes.</p>
+<p>Within the Kaggle’s data set page, the introduction displays that the dataset contains information about a group of test subjects and their sleep patterns, including sleep duration, efficiency, and stages (REM, deep, and light sleep), as well as factors like caffeine intake, alcohol consumption, smoking status, and exercise frequency, in addition to age and gender.</p>
+</div>
+<div id="data-set-introduction" class="section level4">
+<h4>Data Set Introduction:</h4>
+<p>The following are the variables identified in the data set.</p>
+<pre><code>##  [1] &quot;ID&quot;                     &quot;Age&quot;                    &quot;Gender&quot;                
+##  [4] &quot;Bedtime&quot;                &quot;Wakeup.time&quot;            &quot;Sleep.duration&quot;        
+##  [7] &quot;Sleep.efficiency&quot;       &quot;REM.sleep.percentage&quot;   &quot;Deep.sleep.percentage&quot; 
+## [10] &quot;Light.sleep.percentage&quot; &quot;Awakenings&quot;             &quot;Caffeine.consumption&quot;  
+## [13] &quot;Alcohol.consumption&quot;    &quot;Smoking.status&quot;         &quot;Exercise.frequency&quot;</code></pre>
+<p>As the intention of this collaborative project is to pin point the relevant results with regards to : <em>“What is the impact of various lifestyle choices on sleep quality among adults?”</em>, then instead of creating an overall analysis, we will focus on determined variables and their impact to the the sleeping quality.</p>
+<p><strong>Explanation of the Raw Data:</strong></p>
+<pre><code>## &#39;data.frame&#39;:    452 obs. of  15 variables:
+##  $ ID                    : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Age                   : int  65 69 40 40 57 36 27 53 41 11 ...
+##  $ Gender                : chr  &quot;Female&quot; &quot;Male&quot; &quot;Female&quot; &quot;Female&quot; ...
+##  $ Bedtime               : chr  &quot;2021-03-06 01:00:00&quot; &quot;2021-12-05 02:00:00&quot; &quot;2021-05-25 21:30:00&quot; &quot;2021-11-03 02:30:00&quot; ...
+##  $ Wakeup.time           : chr  &quot;2021-03-06 07:00:00&quot; &quot;2021-12-05 09:00:00&quot; &quot;2021-05-25 05:30:00&quot; &quot;2021-11-03 08:30:00&quot; ...
+##  $ Sleep.duration        : num  6 7 8 6 8 7.5 6 10 6 9 ...
+##  $ Sleep.efficiency      : num  0.88 0.66 0.89 0.51 0.76 0.9 0.54 0.9 0.79 0.55 ...
+##  $ REM.sleep.percentage  : int  18 19 20 23 27 23 28 28 28 18 ...
+##  $ Deep.sleep.percentage : int  70 28 70 25 55 60 25 52 55 37 ...
+##  $ Light.sleep.percentage: int  12 53 10 52 18 17 47 20 17 45 ...
+##  $ Awakenings            : num  0 3 1 3 3 0 2 0 3 4 ...
+##  $ Caffeine.consumption  : num  0 0 0 50 0 NA 50 50 50 0 ...
+##  $ Alcohol.consumption   : num  0 3 0 5 3 0 0 0 0 0 ...
+##  $ Smoking.status        : chr  &quot;Yes&quot; &quot;Yes&quot; &quot;No&quot; &quot;Yes&quot; ...
+##  $ Exercise.frequency    : num  3 3 3 1 3 1 1 3 1 0 ...
+## NULL</code></pre>
+<pre><code>##        ID             Age           Gender            Bedtime         
+##  Min.   :  1.0   Min.   : 9.00   Length:452         Length:452        
+##  1st Qu.:113.8   1st Qu.:29.00   Class :character   Class :character  
+##  Median :226.5   Median :40.00   Mode  :character   Mode  :character  
+##  Mean   :226.5   Mean   :40.29                                        
+##  3rd Qu.:339.2   3rd Qu.:52.00                                        
+##  Max.   :452.0   Max.   :69.00                                        
+##                                                                       
+##  Wakeup.time        Sleep.duration   Sleep.efficiency REM.sleep.percentage
+##  Length:452         Min.   : 5.000   Min.   :0.5000   Min.   :15.00       
+##  Class :character   1st Qu.: 7.000   1st Qu.:0.6975   1st Qu.:20.00       
+##  Mode  :character   Median : 7.500   Median :0.8200   Median :22.00       
+##                     Mean   : 7.466   Mean   :0.7889   Mean   :22.62       
+##                     3rd Qu.: 8.000   3rd Qu.:0.9000   3rd Qu.:25.00       
+##                     Max.   :10.000   Max.   :0.9900   Max.   :30.00       
+##                                                                           
+##  Deep.sleep.percentage Light.sleep.percentage   Awakenings   
+##  Min.   :18.00         Min.   : 7.00          Min.   :0.000  
+##  1st Qu.:48.25         1st Qu.:15.00          1st Qu.:1.000  
+##  Median :58.00         Median :18.00          Median :1.000  
+##  Mean   :52.82         Mean   :24.56          Mean   :1.641  
+##  3rd Qu.:63.00         3rd Qu.:32.50          3rd Qu.:3.000  
+##  Max.   :75.00         Max.   :63.00          Max.   :4.000  
+##                                               NA&#39;s   :20     
+##  Caffeine.consumption Alcohol.consumption Smoking.status     Exercise.frequency
+##  Min.   :  0.00       Min.   :0.000       Length:452         Min.   :0.000     
+##  1st Qu.:  0.00       1st Qu.:0.000       Class :character   1st Qu.:0.000     
+##  Median : 25.00       Median :0.000       Mode  :character   Median :2.000     
+##  Mean   : 23.65       Mean   :1.174                          Mean   :1.791     
+##  3rd Qu.: 50.00       3rd Qu.:2.000                          3rd Qu.:3.000     
+##  Max.   :200.00       Max.   :5.000                          Max.   :5.000     
+##  NA&#39;s   :25           NA&#39;s   :14                             NA&#39;s   :6</code></pre>
+<ul>
+<li><strong>Analysis of the data encountered:</strong></li>
+</ul>
+<p>The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, which ranges from 9 to 69 years with an average of 40.29 years, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration (ranging from 5 to 10 hours with an average of 7.47 hours), and sleep efficiency (ranging from 50% to 99% with an average of 78.89%). Additionally, the dataset measures the percentage of sleep spent in different stages: REM sleep (15% to 30%), deep sleep (18% to 75%), and light sleep (7% to 63%). The number of awakenings during the night is also recorded, with values ranging from 0 to 4 times, and an average of 1.64 times.</p>
+<p>Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine consumption (ranging from 0 to 200 mg), alcohol consumption (0 to 5 units), smoking status, and exercise frequency (0 to 5 days per week). The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering valuable insights into how different behaviors and characteristics impact sleep patterns and efficiency.</p>
+<pre><code>## 
+## Call:
+## lm(formula = Sleep.efficiency ~ Age + Caffeine.consumption + 
+##     Alcohol.consumption + Exercise.frequency + Gender, data = cleaned_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.32074 -0.07276  0.01985  0.07990  0.27445 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)           0.7184739  0.0221180  32.484  &lt; 2e-16 ***
+## Age                   0.0016640  0.0004670   3.563 0.000413 ***
+## Caffeine.consumption  0.0002822  0.0002164   1.304 0.193129    
+## Alcohol.consumption  -0.0336521  0.0037310  -9.020  &lt; 2e-16 ***
+## Exercise.frequency    0.0261673  0.0042395   6.172 1.72e-09 ***
+## GenderMale           -0.0219210  0.0130756  -1.676 0.094462 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1176 on 382 degrees of freedom
+## Multiple R-squared:  0.2584, Adjusted R-squared:  0.2487 
+## F-statistic: 26.62 on 5 and 382 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="citations" class="section level4">
+<h4>Citations:</h4>
+<p><a href="https://www.kaggle.com/equilibriumm" class="uri">https://www.kaggle.com/equilibriumm</a></p>
+</div>
 
 
 

@@ -14,13 +14,17 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
 ```
 
 
 
 #### Section 1: Loading the libraries
-```{r Loading the libraries}
+```{r Loading the libraries, include=FALSE}
 # Loading the libraries
 library(dplyr)
 library(tidyr)
@@ -35,10 +39,70 @@ library(htmltools)
 ```
 
 
+#### Research Question:
+What is the impact of various lifestyle choices on sleep quality among adults?
+
+#### Introduction to the data set.
+
+The  data set utilized for this work was obtained from [Kaggle](https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency).
+
+Kaggle is a website and collection of services for data science. It provides a platform for users to find and share datasets, as well as compete in machine learning competitions. Since the business _"strongly encourage dataset publishers to share their data in an accessible, non-proprietary format if possible"_, the sleep quality data set does mentions the license is under the Authors, for which this case is Equilibrium, but there is no more information to be found in the Equilibrium's Bio. Nonetheless, this data set has a 10.0 out of 10.0 grade on usability rated by Kaggle users, and it can be clearly identified that the data set has been used multiple times by different users for academic purposes.
 
 
-```{r}
+Within the Kaggle's data set page, the introduction displays that the dataset contains information about a group of test subjects and their sleep patterns, including sleep duration, efficiency, and stages (REM, deep, and light sleep), as well as factors like caffeine intake, alcohol consumption, smoking status, and exercise frequency, in addition to age and gender.
+
+
+
+
+#### Data Set Introduction:
+
+```{r Loading Data}
+## Loading the data set
 raw_data <- read.csv("Sleep_Efficiency.csv",header = TRUE)
 ```
 
 
+The following are the variables identified in the data set.
+```{r Looking at variables}
+# Identifying the variables:
+
+print(colnames(raw_data))
+```
+
+As the intention of this collaborative project is to pin point the relevant results with regards to : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, then instead of creating an overall analysis, we will focus on determined variables and their impact to the the sleeping quality.
+
+
+**Explanation of the Raw Data:**
+```{r}
+print(str(raw_data))
+print(summary(raw_data))
+```
+
+ - **Analysis of the data encountered:**
+ 
+ The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, which ranges from 9 to 69 years with an average of 40.29 years, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration (ranging from 5 to 10 hours with an average of 7.47 hours), and sleep efficiency (ranging from 50% to 99% with an average of 78.89%). Additionally, the dataset measures the percentage of sleep spent in different stages: REM sleep (15% to 30%), deep sleep (18% to 75%), and light sleep (7% to 63%). The number of awakenings during the night is also recorded, with values ranging from 0 to 4 times, and an average of 1.64 times.
+
+Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine consumption (ranging from 0 to 200 mg), alcohol consumption (0 to 5 units), smoking status, and exercise frequency (0 to 5 days per week). The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering valuable insights into how different behaviors and characteristics impact sleep patterns and efficiency.
+
+
+
+
+
+
+
+
+```{r Cleaning data}
+# Clean data by removing rows with missing values
+cleaned_data <- na.omit(raw_data)
+
+# Fit a linear model to predict Sleep.efficiency
+model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender, data = cleaned_data)
+
+# Get a summary of the model
+summary(model)
+```
+
+
+#### Citations:
+
+https://www.kaggle.com/equilibriumm
