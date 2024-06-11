@@ -69,7 +69,7 @@ The following are the variables identified in the data set.
 print(colnames(raw_data))
 ```
 
-As the intention of this collaborative project is to pin point the relevant results with regards to : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, then instead of creating an overall analysis, we will focus on determined variables and their impact to the the sleeping quality.
+As the intention of this collaborative project is to pin point the relevant results with regards to : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, then instead of creating an overall analysis, we will focus on determined variables and their impact upon sleeping quality.
 
 
 **Explanation of the Raw Data:**
@@ -197,7 +197,73 @@ print(Gender_Exercise_SE_Plot)
 ```
 
 
+### Age and alcohol consumption analysis:
+-Adrian Pouflis
 
+**Research Question**
+
+As identified in Eduard's earlier analysis, using linear regression, age and alcohol consumption both have significant impacts on sleep efficiency. Alcohol consumption had a significantly larger magnitude of impact than age, its direction was negative.
+
+I have two primary research questions relating to these variables.
+
+How do these variables impact quality of sleep independently?
+
+Does one variable have a mediating effect on the other? (For example, maybe the impact of alcohol increases with age.)
+
+**Analysis - Question 1**
+
+With regards to the first research question, a relationship between the variables and sleep efficiency has already been quantified. For each point of alcohol consumption, sleep efficiency decreases by 3.36%. Age seems to actually have an extremely small impact, a less than 1% (~0.1664%) increase in sleep efficiency with age. Both results were found to be statistically significant. 
+
+These effects are fairly moderate in scope, as was noted already, the linear regression explains only about 25.84% of the variance in sleep efficiency. Repeating the process on other test variables (Awakenings and sleep duration) below, similarly low R-squared values can be seen.
+
+```{r}
+Linear_model_duration <- lm(Sleep.duration ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender, data = cleaned_data)
+
+duration_r_squared = summary(Linear_model_duration)$r.squared
+
+
+Linear_model_awakenings <- lm(Awakenings ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender, data = cleaned_data)
+
+awakening_r_squared = summary(Linear_model_awakenings)$r.squared
+
+cat("\nThe r-squared value for the linear model on sleep duration is",duration_r_squared)
+
+cat("\nThe r-squared value for the linear model on number of awakenings is",awakening_r_squared)
+
+```
+Alcohol consumption ranged between doses of 0 and 5. Let's examine sleep efficiency for each value of alcohol consumption.
+
+```{r Visualizing the data Gender-Excercise}
+alcohol_data <- cleaned_data %>%
+    select(Sleep.efficiency, Alcohol.consumption)
+
+
+summary_by_alcohol <- alcohol_data %>%
+    group_by(Alcohol.consumption) %>%
+    summarise(
+        Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
+    )
+
+summary_by_alcohol
+```
+
+Overall, the relationship between alcohol consumption and sleep efficiency seems uncertain, lower amounts of alcohol do see higher efficiency, but the value spikes at a value of 3 and the regression indicates the effect is somewhat weak. 
+
+Repeating the process with age:
+
+```{r Visualizing the data Gender-Excercise}
+Age_bands <- cut(cleaned_data$Age, c(seq(9, 70, by = 5), Inf), include.lowest = TRUE)
+
+aggregate(Sleep.efficiency ~ Age_bands, cleaned_data, mean)
+```
+Sleep efficiency would appear to peak around the 29-59 range, falling in later years and being lowest in 
+adolescent years.
+
+**Analysis - Question 2**
+
+Now I've explored the impact of these variables independently, what remains is to see how one variable can mediate the other.
+
+(Mediation analysis can go here)
 #### Citations:
 
 Equilibrium. (2023). *Sleep efficiency* [Data set]. Kaggle. [https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency](https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency)
