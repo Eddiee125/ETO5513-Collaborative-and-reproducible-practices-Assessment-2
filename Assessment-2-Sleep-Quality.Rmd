@@ -47,7 +47,7 @@ What is the impact of various lifestyle choices on sleep quality among adults?
 
 The data set utilized for this work was obtained from Kaggle.
  
-Kaggle is a website and collection of services for data science. It provides a platform for users to find and share datasets, as well as compete in machine learning competitions. This data set does mention the license is under the Authors, for which this case is Equilibrium, but this author's bio doesn't elaborate on them or this data's source. Despite this, the dataset is highly rated and has been used by others for academic purposes.
+Kaggle is a website and collection of services for data science. It provides a platform for users to find and share datasets, as well as compete in machine learning competitions. This data set does mention the license is under the Authors, who is listed as 'Equilibrium', but this author doesn't elaborate on their data's source. Despite this, the dataset is highly rated and has been used by others for academic purposes.
 
 
 #### Data Set Introduction:
@@ -65,8 +65,7 @@ The following are the variables identified in the data set.
 print(colnames(raw_data))
 ```
 
-As the intention of this collaborative project is to pin point the relevant results with regards to : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, then instead of creating an overall analysis, we will focus on determined variables and their impact upon sleeping quality.
-
+As the intention of this collaborative project is to answer the question of : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, instead of analysing everything, we will determine and analysis a few key variables impact on sleep quality.
 
 **Explanation of the Raw Data:**
 ```{r}
@@ -76,7 +75,7 @@ print(summary(raw_data))
 
  - **Analysis of the data encountered:**
  
-The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration, and sleep efficiency. Additionally, the dataset measures the percentage of sleep spent in different stages: REM sleep (REM Sleep %), deep sleep (Deep sleep %), and light sleep (Light sleep %) . The number of awakenings during the night is also recorded.
+The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration, and sleep efficiency. Additionally, the dataset measures the percentage of sleep spent in different stages: REM, deep, and light sleep. The number of awakenings during the night is also recorded.
  
 Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine/alcohol consumption, smoking status, and exercise frequency. The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering insights into how behaviors and characteristics impact sleep patterns and efficiency.
 
