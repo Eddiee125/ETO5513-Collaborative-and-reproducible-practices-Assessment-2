@@ -354,9 +354,8 @@ display: none;
 </div>
 <div id="introduction-to-the-data-set." class="section level4">
 <h4>Introduction to the data set.</h4>
-<p>The data set utilized for this work was obtained from <a href="https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency">Kaggle</a>.</p>
-<p>Kaggle is a website and collection of services for data science. It provides a platform for users to find and share datasets, as well as compete in machine learning competitions. Since the business <em>“strongly encourage dataset publishers to share their data in an accessible, non-proprietary format if possible”</em>, the sleep quality data set does mentions the license is under the Authors, for which this case is Equilibrium, but there is no more information to be found in the Equilibrium’s Bio. Nonetheless, this data set has a 10.0 out of 10.0 grade on usability rated by Kaggle users, and it can be clearly identified that the data set has been used multiple times by different users for academic purposes.</p>
-<p>Within the Kaggle’s data set page, the introduction displays that the dataset contains information about a group of test subjects and their sleep patterns, including sleep duration, efficiency, and stages (REM, deep, and light sleep), as well as factors like caffeine intake, alcohol consumption, smoking status, and exercise frequency, in addition to age and gender.</p>
+<p>The data set utilized for this work was obtained from Kaggle.</p>
+<p>Kaggle is a website and collection of services for data science. It provides a platform for users to find and share datasets, as well as compete in machine learning competitions. This data set does mention the license is under the Authors, for which this case is Equilibrium, but this author’s bio doesn’t elaborate on them or this data’s source. Despite this, the dataset is highly rated and has been used by others for academic purposes.</p>
 </div>
 <div id="data-set-introduction" class="section level4">
 <h4>Data Set Introduction:</h4>
@@ -420,15 +419,10 @@ display: none;
 <ul>
 <li><strong>Analysis of the data encountered:</strong></li>
 </ul>
-<p>The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, which ranges from 9 to 69 years with an average of 40.29 years, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration (ranging from 5 to 10 hours with an average of 7.47 hours), and sleep efficiency (ranging from 50% to 99% with an average of 78.89%). Additionally, the dataset measures the percentage of sleep spent in different stages: REM sleep (15% to 30%), deep sleep (18% to 75%), and light sleep (7% to 63%). The number of awakenings during the night is also recorded, with values ranging from 0 to 4 times, and an average of 1.64 times.</p>
-<p>Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine consumption (ranging from 0 to 200 mg), alcohol consumption (0 to 5 units), smoking status, and exercise frequency (0 to 5 days per week). The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering valuable insights into how different behaviors and characteristics impact sleep patterns and efficiency.</p>
-<p><strong>Important metrics to understand:</strong></p>
-<p>As mentioned by the Author in the Intro to the data:</p>
-<ul>
-<li><p><em>“The”Sleep efficiency” feature is a measure of the proportion of time spent in bed that is actually spent asleep.”</em></p></li>
-<li><p><em>“The”REM sleep percentage”, “Deep sleep percentage”, and “Light sleep percentage” features indicate the amount of time each subject spent in each stage of sleep.”</em></p></li>
-<li><p><em>“The”Awakenings” feature records the number of times each subject wakes up during the night. “</em></p></li>
-</ul>
+<p>The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration, and sleep efficiency. Additionally, the dataset measures the percentage of sleep spent in different stages: REM sleep (REM Sleep %), deep sleep (Deep sleep %), and light sleep (Light sleep %) . The number of awakenings during the night is also recorded.</p>
+<p>Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine consumption, alcohol consumption, smoking status, and exercise frequency. The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering valuable insights into how different behaviors and characteristics impact sleep patterns and efficiency.</p>
+<p>The table just above summarises important information about the variables.</p>
+<p>Also, The “Sleep efficiency” feature is a measure of the proportion of time spent in bed that is actually spent asleep.</p>
 </div>
 <div id="gender-and-excercise-variables" class="section level3">
 <h3>Gender and excercise variables:</h3>
@@ -512,18 +506,50 @@ The linear model highlights that while gender has a marginal impact on sleep eff
 <div id="age-and-alcohol-consumption-analysis" class="section level3">
 <h3>Age and alcohol consumption analysis:</h3>
 <p>-Adrian Pouflis</p>
-<p><strong>Research Question</strong>
-As identified in Eduard’s earlier analysis, using linear regression, age and alcohol consumption both have significant impacts on sleep efficiency. Alcohol consumption had a significantly larger magnitude of impact than age, its direction was negative.</p>
+<p><strong>Research Question</strong></p>
+<p>As identified in Eduard’s earlier analysis, using linear regression, age and alcohol consumption both have significant impacts on sleep efficiency. Alcohol consumption had a significantly larger magnitude of impact than age, its direction was negative.</p>
 <p>I have two primary research questions relating to these variables.</p>
 <p>How do these variables impact quality of sleep independently?</p>
 <p>Does one variable have a mediating effect on the other? (For example, maybe the impact of alcohol increases with age.)</p>
 <p><strong>Analysis - Question 1</strong></p>
 <p>With regards to the first research question, a relationship between the variables and sleep efficiency has already been quantified. For each point of alcohol consumption, sleep efficiency decreases by 3.36%. Age seems to actually have an extremely small impact, a less than 1% (~0.1664%) increase in sleep efficiency with age. Both results were found to be statistically significant.</p>
-<p>Since both of these effects are very moderate, I will compare additionally with sleep duration..</p>
-<div id="citations" class="section level4">
-<h4>Citations:</h4>
+<p>These effects are fairly moderate in scope, as was noted already, the linear regression explains only about 25.84% of the variance in sleep efficiency. Repeating the process on other test variables (Awakenings and sleep duration) below, similarly low R-squared values can be seen.</p>
+<pre><code>## 
+## The r-squared value for the linear model on sleep duration is 0.01159178</code></pre>
+<pre><code>## 
+## The r-squared value for the linear model on number of awakenings is 0.1226739</code></pre>
+<p>Alcohol consumption ranged between doses of 0 and 5. Let’s examine sleep efficiency for each value of alcohol consumption.</p>
+<pre><code>## # A tibble: 6 × 2
+##   Alcohol.consumption Mean_Sleep_Efficiency
+##                 &lt;dbl&gt;                 &lt;dbl&gt;
+## 1                   0                 0.832
+## 2                   1                 0.803
+## 3                   2                 0.669
+## 4                   3                 0.761
+## 5                   4                 0.688
+## 6                   5                 0.679</code></pre>
+<p>Overall, the relationship between alcohol consumption and sleep efficiency seems uncertain, lower amounts of alcohol do see higher efficiency, but the value spikes at a value of 3 and the regression indicates the effect is somewhat weak.</p>
+<p>Repeating the process with age:</p>
+<pre><code>##    Age_bands Sleep.efficiency
+## 1     [9,14]        0.5583333
+## 2    (14,19]        0.7260000
+## 3    (19,24]        0.7473333
+## 4    (24,29]        0.7650000
+## 5    (29,34]        0.8105405
+## 6    (34,39]        0.8217500
+## 7    (39,44]        0.7930233
+## 8    (44,49]        0.8448837
+## 9    (49,54]        0.8080000
+## 10   (54,59]        0.7894286
+## 11   (59,64]        0.7583333
+## 12   (64,69]        0.7566667</code></pre>
+<p>Sleep efficiency would appear to peak around the 29-59 range, falling in later years and being lowest in
+adolescent years.</p>
+<p><strong>Analysis - Question 2</strong></p>
+<p>Now I’ve explored the impact of these variables independently, what remains is to see how one variable can mediate the other.</p>
+<p>(Mediation analysis can go here)
+#### Citations:</p>
 <p>Equilibrium. (2023). <em>Sleep efficiency</em> [Data set]. Kaggle. <a href="https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency">https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency</a></p>
-</div>
 </div>
 
 
