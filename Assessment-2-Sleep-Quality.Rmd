@@ -273,7 +273,7 @@ Given that age has been established to have a strongest connection with sleep ef
 Age_selected_data <- cleaned_data[cleaned_data$Age > 59 | cleaned_data$Age < 29 ,] 
 
 # Perform regression, this time using a different formula to determine moderation effect
-Moderation_model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender + Age * Alcohol.consumption, data = Age_selected_data)
+Moderation_model2 <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender + Age * Alcohol.consumption, data = Age_selected_data)
 summary(Moderation_model2)
 ```
 The effect of Age:Alcohol.consumption does increase, but is very small. R-squared decreases and the effect of age doesn't change, this indicates the model overall isn't much better than one with a full age range.
