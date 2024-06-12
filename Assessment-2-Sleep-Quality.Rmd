@@ -71,6 +71,7 @@ As the intention of this collaborative project is to answer the question of : _"
 ```{r}
 print(str(raw_data))
 print(summary(raw_data))
+
 ```
 
  - **Analysis of the data encountered:**
@@ -183,6 +184,28 @@ Gender_Exercise_SE_Plot <-
 print(Gender_Exercise_SE_Plot)
 ```
 
+### Generation and Exercise Variables:
+
+Using the generational age groupings (Library of Congress, n.d.) ages of subjects were catgorised.
+
+```{r Visualizing the data generation-Excercise}
+age_exercise <- cleaned_data %>%
+    mutate(age_group = cut (Age, breaks = c(9,12,27,43,59,70), include.lowest = T, labels = c("Gen_Alpha","Gen_Z","Millenial","Gen_X","Boomers")))
+
+summary_by_generation <- age_exercise %>%
+    group_by(age_group) %>%
+    summarise(
+        Min_Sleep_Efficiency = min(Sleep.efficiency, na.rm = TRUE),
+        Max_Sleep_Efficiency = max(Sleep.efficiency, na.rm = TRUE),
+        Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
+    )
+```
+
+```{r summary of sleepefficiency by age_generation ables}
+kable(summary_by_generation, caption = "Summary of Sleep Efficiency by Age Generation") %>%
+                        kable_classic(bootstrap_options = c("striped","hover"))
+
+```
 
 ### Age and alcohol consumption analysis:
 -Adrian Pouflis
@@ -278,6 +301,9 @@ summary(Moderation_model2)
 ```
 The effect of Age:Alcohol.consumption does increase, but is very small. R-squared decreases and the effect of age doesn't change, this indicates the model overall isn't much better than one with a full age range.
 
+
 #### Citations:
 
 Equilibrium. (2023). *Sleep efficiency* [Data set]. Kaggle. [https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency](https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency)
+
+Library of Congress. (n.d.). *Doing Consumer Research:A Resource Guide/Generations* (https://www.guides.loc.gov/consumer-research/market-segments/generations)
