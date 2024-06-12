@@ -184,9 +184,13 @@ Gender_Exercise_SE_Plot <-
 print(Gender_Exercise_SE_Plot)
 ```
 
-### Generation and Exercise Variables:
+### Age-generation and exercise analysis:
+This section will focus on sleep efficiency using the two variables age grouped by generation and exercise frequency.
 
-Using the generational age groupings (Library of Congress, n.d.) ages of subjects were catgorised.
+**Research Question**
+
+**Sleep efficiency by age generation**
+This subsection will first look at sleep efficiency using age grouped by generation. Using the generational age groupings (Library of Congress, n.d.) ages of subjects were catgorised.
 
 ```{r Visualizing the data generation-Excercise}
 age_exercise <- cleaned_data %>%
@@ -206,6 +210,79 @@ kable(summary_by_generation, caption = "Summary of Sleep Efficiency by Age Gener
                         kable_classic(bootstrap_options = c("striped","hover"))
 
 ```
+
+```{r figure of sleep efficiency to age_generation}
+
+age_ex_percentile<- age_exercise %>% 
+                        group_by(age_group) %>%
+                        summarise(percentile_10=quantile(Sleep.efficiency, probs = 0.10),
+                                percentile_25=quantile(Sleep.efficiency, probs = 0.25),
+                                percentile_50=quantile(Sleep.efficiency, probs = 0.50),
+                                percentile_75=quantile(Sleep.efficiency, probs = 0.75),
+                                percentile_90=quantile(Sleep.efficiency, probs = 0.90)) 
+age_ex_percentile1<- age_ex_percentile %>% pivot_longer('percentile_10':'percentile_90',names_to="percentile", values_to="S_efficiency")
+
+fig1_age<- ggplot(age_ex_percentile1, aes(age_group, y=S_efficiency))
+fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
+            labs( title. = "Percentile of sleep efficiency by age generation",
+                          x = "Generation",
+                          y = "Sleep Efficiency (%)") +
+                                scale_y_continuous(labels = scales::percent) +
+                            theme_classic()
+
+```
+##### Sleep efficiency by exercise frequency
+This subsection analyses sleep efficiency by exercise frequency, taking into account the generation of each individual in the dataset.
+
+```{r Visualizing the data generation-Excercise1}
+age_exercise_1 <- age_exercise %>%
+    mutate(freq_exercise_group = cut (Exercise.frequency, breaks = c(0,1,3,5), include.lowest = T, labels = c("Low","Medium","High")))
+
+summary_by_Exfrequency <- age_exercise_1 %>%
+    group_by(freq_exercise_group) %>%
+    summarise(
+        Min_Sleep_Efficiency = min(Sleep.efficiency, na.rm = TRUE),
+        Max_Sleep_Efficiency = max(Sleep.efficiency, na.rm = TRUE),
+        Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
+    )
+```
+
+```{r summary of sleepefficiency by exercise frequency tables}
+kable(summary_by_Exfrequency, caption = "Summary of Sleep Efficiency by Exercise Frequency") %>%
+                        kable_classic(bootstrap_options = c("striped","hover"))
+
+```
+
+
+
+```{r figure of sleep efficiency to exercise frequency by generation}
+exercise_fr_percentile<- age_exercise_1 %>% 
+                        group_by(freq_exercise_group) %>%
+                        summarise(percentile_10=quantile(Sleep.efficiency, probs = 0.10),
+                                percentile_25=quantile(Sleep.efficiency, probs = 0.25),
+                                percentile_50=quantile(Sleep.efficiency, probs = 0.50),
+                                percentile_75=quantile(Sleep.efficiency, probs = 0.75),
+                                percentile_90=quantile(Sleep.efficiency, probs = 0.90)) 
+exercise_fr_percentile1<- exercise_fr_percentile %>% pivot_longer('percentile_10':'percentile_90',names_to="percentile", values_to="S_efficiency")
+
+fig2_age<- ggplot(exercise_fr_percentile1, aes(freq_exercise_group, y=S_efficiency))
+fig2_age + geom_line(aes(linetype = percentile, group = percentile)) +
+            labs( title. = "Percentile of sleep efficiency by exercise frequency",
+                          x = "Exercise Frequency Level",
+                          y = "Sleep Efficiency (%)") +
+                                scale_y_continuous(labels = scales::percent) +
+                            theme_classic()
+
+fig3_age<- ggplot(age_exercise_1,aes(age_group, y=Sleep.efficiency))
+fig3_age + geom_point(aes(color = freq_exercise_group, group = age_group)) +
+            labs( title. = "Sleep efficiency of age generations by exercise frequency",
+                          x = "Generation",
+                          y = "Sleep Efficiency (%)") +
+                                scale_y_continuous(labels = scales::percent) +
+                            theme_classic()
+
+```
+
 
 ### Age and alcohol consumption analysis:
 -Adrian Pouflis
