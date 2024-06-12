@@ -220,7 +220,7 @@ cat("\nThe r-squared value for the linear model on number of awakenings is",awak
 ```
 Alcohol consumption ranged between doses of 0 and 5. Let's examine sleep efficiency for each value of alcohol consumption.
 
-```{r Visualizing the data Gender-Excercise 5}
+```{r}
 alcohol_data <- cleaned_data %>%
     select(Sleep.efficiency, Alcohol.consumption)
 
@@ -238,7 +238,7 @@ Overall, the relationship between alcohol consumption and sleep efficiency seems
 
 Repeating the process with age:
 
-```{r Visualizing the data Gender-Excercise 2}
+```{r}
 Age_bands <- cut(cleaned_data$Age, c(seq(9, 70, by = 5), Inf), include.lowest = TRUE)
 
 aggregate(Sleep.efficiency ~ Age_bands, cleaned_data, mean)
