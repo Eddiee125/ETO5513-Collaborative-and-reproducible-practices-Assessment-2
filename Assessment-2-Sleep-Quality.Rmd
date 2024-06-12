@@ -35,6 +35,7 @@ library(scales)
 library(RColorBrewer)
 library(viridis)
 library(htmltools)
+library(interactions)
 
 ```
 
@@ -195,7 +196,7 @@ I have two primary research questions relating to these variables.
 
 How do these variables impact quality of sleep independently?
 
-Does one variable have a mediating effect on the other? (For example, maybe the impact of alcohol increases with age.)
+Does one variable have a moderating effect on the other? (For example, maybe the impact of alcohol increases with age.)
 
 **Analysis - Question 1**
 
@@ -248,9 +249,36 @@ adolescent years.
 
 **Analysis - Question 2**
 
-Now I've explored the impact of these variables independently, what remains is to see how one variable can mediate the other.
+Now I've explored the impact of these variables independently, what remains is to see how one variable can change the impact of another. I'll use two very simple tests for this.
 
-(Mediation analysis can go here)
+
+This process will be done using moderation analysis.
+```{r}
+# Perform regression, this time using a different formula to determine moderation effect
+Moderation_model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender + Age * Alcohol.consumption, data = cleaned_data)
+summary(Moderation_model)
+
+interactions::interact_plot(Moderation_model, pred = Age, modx = Alcohol.consumption)
+```
+The moderation effect is also visualised. The different lines represent different levels of alcohol consumption, while their slope indicates the relationship between age and sleep efficiency. These lines are close to parallel, meaning for each different level of alcohol consumption, the relationship between the age and sleep efficiency variables are unchanged. More simply, the interaction effect is extremely small.
+
+The prior variables are about as predicted before, with some variation due to the change in model makeup. R squared has improved by an extremely marginal amount. 
+
+The last variable, 'Age:Alcohol.consumption' indicates that the relationship between age and sleep efficiency decreases as alcohol consumption increases.
+
+Given that age has been established to have a strongest connection with sleep efficiency in the 29-59 age band, I re-ran the model within this age range.
+
+
+```{r}
+#Only select values with age between 20-59
+Age_selected_data <- cleaned_data[cleaned_data$Age > 59 | cleaned_data$Age < 29 ,] 
+
+# Perform regression, this time using a different formula to determine moderation effect
+Moderation_model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender + Age * Alcohol.consumption, data = Age_selected_data)
+summary(Moderation_model2)
+```
+The effect of Age:Alcohol.consumption does increase, but is very small. R-squared decreases and the effect of age doesn't change, this indicates the model overall isn't much better than one with a full age range.
+
 #### Citations:
 
 Equilibrium. (2023). *Sleep efficiency* [Data set]. Kaggle. [https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency](https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency)
