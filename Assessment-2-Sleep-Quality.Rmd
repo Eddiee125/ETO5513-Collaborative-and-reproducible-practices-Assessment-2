@@ -35,6 +35,7 @@ library(scales)
 library(RColorBrewer)
 library(viridis)
 library(htmltools)
+library(interactions)
 
 ```
 
@@ -44,14 +45,9 @@ What is the impact of various lifestyle choices on sleep quality among adults?
 
 #### Introduction to the data set.
 
-The  data set utilized for this work was obtained from [Kaggle](https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency).
-
-Kaggle is a website and collection of services for data science. It provides a platform for users to find and share datasets, as well as compete in machine learning competitions. Since the business _"strongly encourage dataset publishers to share their data in an accessible, non-proprietary format if possible"_, the sleep quality data set does mentions the license is under the Authors, for which this case is Equilibrium, but there is no more information to be found in the Equilibrium's Bio. Nonetheless, this data set has a 10.0 out of 10.0 grade on usability rated by Kaggle users, and it can be clearly identified that the data set has been used multiple times by different users for academic purposes.
-
-
-Within the Kaggle's data set page, the introduction displays that the dataset contains information about a group of test subjects and their sleep patterns, including sleep duration, efficiency, and stages (REM, deep, and light sleep), as well as factors like caffeine intake, alcohol consumption, smoking status, and exercise frequency, in addition to age and gender.
-
-
+The data set utilized for this work was obtained from Kaggle.
+ 
+Kaggle is a website and collection of services for data science. It provides a platform for users to find and share datasets, as well as compete in machine learning competitions. This data set does mention the license is under the Authors, who is listed as 'Equilibrium', but this author doesn't elaborate on their data's source. Despite this, the dataset is highly rated and has been used by others for academic purposes.
 
 
 #### Data Set Introduction:
@@ -69,8 +65,7 @@ The following are the variables identified in the data set.
 print(colnames(raw_data))
 ```
 
-As the intention of this collaborative project is to pin point the relevant results with regards to : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, then instead of creating an overall analysis, we will focus on determined variables and their impact to the the sleeping quality.
-
+As the intention of this collaborative project is to answer the question of : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, instead of analysing everything, we will determine and analysis a few key variables impact on sleep quality.
 
 **Explanation of the Raw Data:**
 ```{r}
@@ -81,23 +76,15 @@ print(summary(raw_data))
 
  - **Analysis of the data encountered:**
  
- The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, which ranges from 9 to 69 years with an average of 40.29 years, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration (ranging from 5 to 10 hours with an average of 7.47 hours), and sleep efficiency (ranging from 50% to 99% with an average of 78.89%). Additionally, the dataset measures the percentage of sleep spent in different stages: REM sleep (15% to 30%), deep sleep (18% to 75%), and light sleep (7% to 63%). The number of awakenings during the night is also recorded, with values ranging from 0 to 4 times, and an average of 1.64 times.
+The data set provides comprehensive information on sleep quality and related factors for a group of 452 individuals. The dataset includes demographic information such as age, and gender. Detailed sleep metrics are recorded, including bedtime, wakeup time, total sleep duration, and sleep efficiency. Additionally, the dataset measures the percentage of sleep spent in different stages: REM, deep, and light sleep. The number of awakenings during the night is also recorded.
+ 
+Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine/alcohol consumption, smoking status, and exercise frequency. The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering insights into how behaviors and characteristics impact sleep patterns and efficiency.
 
-Beyond sleep-specific data, the dataset captures lifestyle factors that may influence sleep quality. These factors include caffeine consumption (ranging from 0 to 200 mg), alcohol consumption (0 to 5 units), smoking status, and exercise frequency (0 to 5 days per week). The dataset contains some missing values in the columns for awakenings, caffeine consumption, alcohol consumption, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering valuable insights into how different behaviors and characteristics impact sleep patterns and efficiency.
-
-
-**Important metrics to understand:**
-
-As mentioned by the Author in the Intro to the data:
+The table above summarises important information about the variables.
 
 
-- _"The "Sleep efficiency" feature is a measure of the proportion of time spent in bed that is actually spent asleep."_
 
-- _"The "REM sleep percentage", "Deep sleep percentage", and "Light sleep percentage" features indicate the amount of time each subject spent in each stage of sleep."_
-
-- _"The "Awakenings" feature records the number of times each subject wakes up during the night. "_
-
-
+The "Sleep efficiency" feature is a measure of the proportion of time spent in bed spent asleep. 
 
 
 ### Gender and excercise variables:
@@ -147,7 +134,7 @@ The linear model highlights that while gender has a marginal impact on sleep eff
 
 After understanding the relevant variables that affect the "Sleeping Efficiency" it is important to visualize how the current information is, and then proceed to work on more relationships with the help of the model elaborated:
 
-```{r Visualizing the data Gender-Excercise}
+```{r Visualizing the data Gender-Excercise 4}
 gender_exercise <- cleaned_data %>%
     select(Gender, Sleep.efficiency, Exercise.frequency)
 
@@ -219,6 +206,101 @@ kable(summary_by_generation, caption = "Summary of Sleep Efficiency by Age Gener
                         kable_classic(bootstrap_options = c("striped","hover"))
 
 ```
+
+### Age and alcohol consumption analysis:
+-Adrian Pouflis
+
+**Research Question**
+
+As identified in Eduard's earlier analysis, using linear regression, age and alcohol consumption both have significant impacts on sleep efficiency. Alcohol consumption had a significantly larger magnitude of impact than age, its direction was negative.
+
+I have two primary research questions relating to these variables.
+
+How do these variables impact quality of sleep independently?
+
+Does one variable have a moderating effect on the other? (For example, maybe the impact of alcohol increases with age.)
+
+**Analysis - Question 1**
+
+With regards to the first research question, a relationship between the variables and sleep efficiency has already been quantified. For each point of alcohol consumption, sleep efficiency decreases by 3.36%. Age seems to actually have an extremely small impact, a less than 1% (~0.1664%) increase in sleep efficiency with age. Both results were found to be statistically significant. 
+
+These effects are fairly moderate in scope, as was noted already, the linear regression explains only about 25.84% of the variance in sleep efficiency. Repeating the process on other test variables (Awakenings and sleep duration) below, similarly low R-squared values can be seen.
+
+```{r}
+Linear_model_duration <- lm(Sleep.duration ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender, data = cleaned_data)
+
+duration_r_squared = summary(Linear_model_duration)$r.squared
+
+
+Linear_model_awakenings <- lm(Awakenings ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender, data = cleaned_data)
+
+awakening_r_squared = summary(Linear_model_awakenings)$r.squared
+
+cat("\nThe r-squared value for the linear model on sleep duration is",duration_r_squared)
+
+cat("\nThe r-squared value for the linear model on number of awakenings is",awakening_r_squared)
+
+```
+Alcohol consumption ranged between doses of 0 and 5. Let's examine sleep efficiency for each value of alcohol consumption.
+
+```{r}
+alcohol_data <- cleaned_data %>%
+    select(Sleep.efficiency, Alcohol.consumption)
+
+
+summary_by_alcohol <- alcohol_data %>%
+    group_by(Alcohol.consumption) %>%
+    summarise(
+        Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
+    )
+
+summary_by_alcohol
+```
+
+Overall, the relationship between alcohol consumption and sleep efficiency seems uncertain, lower amounts of alcohol do see higher efficiency, but the value spikes at a value of 3 and the regression indicates the effect is somewhat weak. 
+
+Repeating the process with age:
+
+```{r}
+Age_bands <- cut(cleaned_data$Age, c(seq(9, 70, by = 5), Inf), include.lowest = TRUE)
+
+aggregate(Sleep.efficiency ~ Age_bands, cleaned_data, mean)
+```
+Sleep efficiency would appear to peak around the 29-59 range, falling in later years and being lowest in 
+adolescent years.
+
+**Analysis - Question 2**
+
+Now I've explored the impact of these variables independently, what remains is to see how one variable can change the impact of another. I'll use two very simple tests for this.
+
+
+This process will be done using moderation analysis.
+```{r}
+# Perform regression, this time using a different formula to determine moderation effect
+Moderation_model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender + Age * Alcohol.consumption, data = cleaned_data)
+summary(Moderation_model)
+
+interactions::interact_plot(Moderation_model, pred = Age, modx = Alcohol.consumption)
+```
+The moderation effect is also visualised. The different lines represent different levels of alcohol consumption, while their slope indicates the relationship between age and sleep efficiency. These lines are close to parallel, meaning for each different level of alcohol consumption, the relationship between the age and sleep efficiency variables are unchanged. More simply, the interaction effect is extremely small.
+
+The prior variables are about as predicted before, with some variation due to the change in model makeup. R squared has improved by an extremely marginal amount. 
+
+The last variable, 'Age:Alcohol.consumption' indicates that the relationship between age and sleep efficiency decreases as alcohol consumption increases.
+
+Given that age has been established to have a strongest connection with sleep efficiency in the 29-59 age band, I re-ran the model within this age range.
+
+
+```{r}
+#Only select values with age between 20-59
+Age_selected_data <- cleaned_data[cleaned_data$Age > 59 | cleaned_data$Age < 29 ,] 
+
+# Perform regression, this time using a different formula to determine moderation effect
+Moderation_model2 <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender + Age * Alcohol.consumption, data = Age_selected_data)
+summary(Moderation_model2)
+```
+The effect of Age:Alcohol.consumption does increase, but is very small. R-squared decreases and the effect of age doesn't change, this indicates the model overall isn't much better than one with a full age range.
+
 
 #### Citations:
 
