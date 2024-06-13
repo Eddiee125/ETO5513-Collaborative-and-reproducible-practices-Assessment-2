@@ -203,15 +203,6 @@ summary_by_generation <- age_exercise %>%
         Max_Sleep_Efficiency = max(Sleep.efficiency, na.rm = TRUE),
         Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
     )
-```
-
-```{r summary of sleepefficiency by age_generation ables}
-kable(summary_by_generation, caption = "Summary of Sleep Efficiency by Age Generation") %>%
-                        kable_classic(bootstrap_options = c("striped","hover"))
-
-```
-
-```{r figure of sleep efficiency to age_generation}
 
 age_ex_percentile<- age_exercise %>% 
                         group_by(age_group) %>%
@@ -221,6 +212,30 @@ age_ex_percentile<- age_exercise %>%
                                 percentile_75=quantile(Sleep.efficiency, probs = 0.75),
                                 percentile_90=quantile(Sleep.efficiency, probs = 0.90)) 
 age_ex_percentile1<- age_ex_percentile %>% pivot_longer('percentile_10':'percentile_90',names_to="percentile", values_to="S_efficiency")
+
+summary_by_gen_perc <- age_ex_percentile1 %>%
+    group_by(percentile) %>%
+    summarise(
+        Min_Sleep_Efficiency = min(S_efficiency, na.rm = TRUE),
+        Max_Sleep_Efficiency = max(S_efficiency, na.rm = TRUE),
+        Mean_Sleep_Efficiency = mean(S_efficiency, na.rm = TRUE)
+    )
+
+colnames(summary_by_generation)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
+colnames(summary_by_gen_perc)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
+
+```
+
+```{r summary of sleepefficiency by age_generation ables}
+
+table1<- rbind(summary_by_generation, summary_by_gen_perc) %>% 
+                        kbl(caption = "Summary of Sleep Efficiency by Age Generation") %>%
+                        kable_classic(bootstrap_options = c("striped","hover"))
+table1
+
+```
+
+```{r figure of sleep efficiency to age_generation}
 
 fig1_age<- ggplot(age_ex_percentile1, aes(age_group, y=S_efficiency))
 fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
@@ -238,24 +253,6 @@ This subsection analyses sleep efficiency by exercise frequency, taking into acc
 age_exercise_1 <- age_exercise %>%
     mutate(freq_exercise_group = cut (Exercise.frequency, breaks = c(0,1,3,5), include.lowest = T, labels = c("Low","Medium","High")))
 
-summary_by_Exfrequency <- age_exercise_1 %>%
-    group_by(freq_exercise_group) %>%
-    summarise(
-        Min_Sleep_Efficiency = min(Sleep.efficiency, na.rm = TRUE),
-        Max_Sleep_Efficiency = max(Sleep.efficiency, na.rm = TRUE),
-        Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
-    )
-```
-
-```{r summary of sleepefficiency by exercise frequency tables}
-kable(summary_by_Exfrequency, caption = "Summary of Sleep Efficiency by Exercise Frequency") %>%
-                        kable_classic(bootstrap_options = c("striped","hover"))
-
-```
-
-
-
-```{r figure of sleep efficiency to exercise frequency by generation}
 exercise_fr_percentile<- age_exercise_1 %>% 
                         group_by(freq_exercise_group) %>%
                         summarise(percentile_10=quantile(Sleep.efficiency, probs = 0.10),
@@ -265,22 +262,50 @@ exercise_fr_percentile<- age_exercise_1 %>%
                                 percentile_90=quantile(Sleep.efficiency, probs = 0.90)) 
 exercise_fr_percentile1<- exercise_fr_percentile %>% pivot_longer('percentile_10':'percentile_90',names_to="percentile", values_to="S_efficiency")
 
-fig2_age<- ggplot(exercise_fr_percentile1, aes(freq_exercise_group, y=S_efficiency))
-fig2_age + geom_line(aes(linetype = percentile, group = percentile)) +
-            labs( title. = "Percentile of sleep efficiency by exercise frequency",
-                          x = "Exercise Frequency Level",
-                          y = "Sleep Efficiency (%)") +
-                                scale_y_continuous(labels = scales::percent) +
-                            theme_classic()
+summary_by_Exfr_perc <- exercise_fr_percentile1 %>%
+    group_by(percentile) %>%
+    summarise(
+        Min_Sleep_Efficiency = min(S_efficiency, na.rm = TRUE),
+        Max_Sleep_Efficiency = max(S_efficiency, na.rm = TRUE),
+        Mean_Sleep_Efficiency = mean(S_efficiency, na.rm = TRUE)
+    )
 
-fig3_age<- ggplot(age_exercise_1,aes(age_group, y=Sleep.efficiency))
-fig3_age + geom_point(aes(color = freq_exercise_group, group = age_group)) +
-            labs( title. = "Sleep efficiency of age generations by exercise frequency",
-                          x = "Generation",
-                          y = "Sleep Efficiency (%)") +
-                                scale_y_continuous(labels = scales::percent) +
-                            theme_classic()
+summary_by_Exfrequency <- age_exercise_1 %>%
+    group_by(freq_exercise_group) %>%
+    summarise(
+        Min_Sleep_Efficiency = min(Sleep.efficiency, na.rm = TRUE),
+        Max_Sleep_Efficiency = max(Sleep.efficiency, na.rm = TRUE),
+        Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
+    )
 
+#standardise column names to use rbind and merge results of percentile and exercise frequency
+colnames(summary_by_Exfrequency)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
+colnames(summary_by_Exfr_perc)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
+
+```
+
+```{r summary of sleepefficiency by exercise frequency tables}
+
+table2<- rbind(summary_by_Exfrequency, summary_by_Exfr_perc) %>% 
+                        kbl(caption = "Summary of Sleep Efficiency by Exercise Frequency") %>%
+                        kable_classic(bootstrap_options = c("striped","hover"))
+table2
+
+```
+
+
+
+```{r figure of sleep efficiency to exercise frequency by generation}
+
+
+age_exercise_1 %>%
+    ggplot(aes(x=freq_exercise_group, y=Sleep.efficiency,group = freq_exercise_group)) +
+                geom_abline() +
+                geom_jitter(width = 0.1, height=0.1) +
+                    facet_wrap(~age_group, scales = "fixed") +
+                        labs( title. = "Sleep efficiency by exercise frequency & generation",
+                          x = "Exercise frequency",
+                          y = "Sleep efficiency")
 ```
 
 
