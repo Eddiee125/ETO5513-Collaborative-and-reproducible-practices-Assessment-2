@@ -40,14 +40,12 @@ library(interactions)
 ```
 
 
-#### Research Question:
+#### Overall Research Question:
 What is the impact of various lifestyle choices on sleep quality among adults?
 
 #### Introduction to the data set.
 
-The data set utilized for this work was obtained from Kaggle.
- 
-Kaggle is a website and collection of services for data science, including dataset hosting. This data set does mention the license is under the Authors, who is listed as 'Equilibrium', but they don't elaborate on their data's source. Regardless, the dataset is highly rated and used by others for academic purposes.
+The data set utilized for this work was obtained from Kaggle, a website and collection of services for data science, including dataset hosting. The data set license is under the Authors, listed as 'Equilibrium', but the data's source was not available. Regardless, the data set is highly rated and widely used for academic purposes.
 
 
 #### Data Set Introduction:
