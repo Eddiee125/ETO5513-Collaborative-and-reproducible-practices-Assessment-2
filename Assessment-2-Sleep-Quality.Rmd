@@ -185,14 +185,20 @@ print(Gender_Exercise_SE_Plot)
 ```
 
 ### Age-generation and exercise analysis:
-This section will focus on sleep efficiency using the two variables age grouped by generation and exercise frequency.
+This section will focus on answering two questions involving sleep efficiency, and using the two variables age grouped by generation and exercise frequency.
 
 **Research Question**
+1. Some sleep studies have shown that sleep efficiency differs between age groups. What are these differences within the data-set chosen for this study and are there any specific 'generations' that show generally better levels of sleep efficiency compared to others?
+2. Given the sleep efficiency data by generation discussed in question 1, and looking at specific life-style choices such as ensuring one exercises regularly, are levels of sleep efficiency still low amongst certain age groups and why?
+
+**Analysis - Question 1**
+
+Sleep efficiency studies for specific age groups, have documented sleep efficiency for the aged (Desjardins et al.,2019) or sleep efficiency studies by lifespan (Kocevska et al., 2021).
 
 **Sleep efficiency by age generation**
 This subsection will first look at sleep efficiency using age grouped by generation. Using the generational age groupings (Library of Congress, n.d.) ages of subjects were catgorised.
 
-```{r Visualizing the data generation-Excercise}
+```{r Visualizing the data generation-Exercise}
 age_exercise <- cleaned_data %>%
     mutate(age_group = cut (Age, breaks = c(9,12,27,43,59,70), include.lowest = T, labels = c("Gen_Alpha","Gen_Z","Millenial","Gen_X","Boomers")))
 
@@ -246,6 +252,9 @@ fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
                             theme_classic()
 
 ```
+
+**Analysis - Question 2**
+
 ##### Sleep efficiency by exercise frequency
 This subsection analyses sleep efficiency by exercise frequency, taking into account the generation of each individual in the dataset.
 
@@ -406,6 +415,10 @@ The effect of Age:Alcohol.consumption does increase, but is very small. R-square
 
 #### Citations:
 
+Desjardins, S., Lapierre, S., Hudon, C., & Desgagné, A. (2019). Factors involved in sleep efficiency: a population-based study of community-dwelling elderly persons. Sleep (New York, N.Y.), 42(5), 1-. https://doi.org/10.1093/sleep/zsz038
+
 Equilibrium. (2023). *Sleep efficiency* [Data set]. Kaggle. [https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency](https://www.kaggle.com/datasets/equilibriumm/sleep-efficiency)
+
+Kocevska, D., Lysen, T. S., Dotinga, A., Koopman-Verhoeff, M. E., Luijk, M. P. C. M., Antypa, N., Biermasz, N. R., Blokstra, A., Brug, J., Burk, W. J., Comijs, H. C., Corpeleijn, E., Dashti, H. S., de Bruin, E. J., de Graaf, R., Derks, I. P. M., Dewald-Kaufmann, J. F., Elders, P. J. M., Gemke, R. J. B. J., … Tiemeier, H. (2021). Sleep characteristics across the lifespan in 1.1 million people from the Netherlands, United Kingdom and United States: a systematic review and meta-analysis. Nature Human Behaviour, 5(1), 113–122. https://doi.org/10.1038/s41562-020-00965-x
 
 Library of Congress. (n.d.). *Doing Consumer Research:A Resource Guide/Generations* (https://www.guides.loc.gov/consumer-research/market-segments/generations)
