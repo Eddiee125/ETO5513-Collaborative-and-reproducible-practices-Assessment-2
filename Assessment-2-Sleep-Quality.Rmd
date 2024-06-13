@@ -63,7 +63,7 @@ The following are the variables identified in the data set.
 print(colnames(raw_data))
 ```
 
-As the intention of this collaborative project is to answer the question of : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, instead of analysing everything, we will determine and analysis how a few key variables impact sleep quality.
+As the intention of this collaborative project is to answer the question of : _"What is the impact of various lifestyle choices on sleep quality among adults?"_, we will determine and analyse how a select few key variables impact sleep quality.
 
 
 **Explanation of the Raw Data:**
