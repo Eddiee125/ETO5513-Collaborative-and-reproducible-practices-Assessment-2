@@ -77,8 +77,7 @@ print(summary(raw_data))
  
 
 The data set provides comprehensive information on sleep quality and related factors for 452 individuals. The data set includes demographic information such as age (9-69 years), and gender. Detailed sleep metrics recorded include bedtime, waketime, total sleep duration, number of awakenings during the night and sleep efficiency. Additionally, the dataset measures the percentage of sleep spent in different stages: REM, deep, and light sleep. The "Sleep efficiency" feature is a measure of the proportion of time spent asleep in bed.  
- 
- 
+
 Beyond sleep-specific data, the dataset captures lifestyle factors that influence sleep quality. These factors include caffeine/alcohol consumption, smoking status, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering insights into how behaviors and characteristics impact sleep patterns and efficiency.
 
 The table above summarises important information about the variables.
