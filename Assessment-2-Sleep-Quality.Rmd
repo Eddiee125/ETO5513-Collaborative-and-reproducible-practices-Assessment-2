@@ -181,19 +181,20 @@ Gender_Exercise_SE_Plot <-
 print(Gender_Exercise_SE_Plot)
 ```
 
-### Age-generation and exercise analysis:
-This section will focus on answering two questions involving sleep efficiency, and using the two variables age grouped by generation and exercise frequency.
+### Section 2: Age-generation and exercise analysis by *Savaira Manoa*
+This section will focus on answering two questions involving sleep efficiency using the two variables, age grouped by generation and exercise frequency.
 
-**Research Question**
-1. Some sleep studies have shown that sleep efficiency differs between age groups. What are these differences within the data-set chosen for this study and are there any specific 'generations' that show generally better levels of sleep efficiency compared to others?
+**Research Questions**
+
+1. Some sleep studies have shown that sleep efficiency differs between age groups. What are these differences within the dataset chosen for this study and are there any specific 'generations' that show generally better levels of sleep efficiency compared to others?
+
 2. Given the sleep efficiency data by generation discussed in question 1, and looking at specific life-style choices such as ensuring one exercises regularly, are levels of sleep efficiency still low amongst certain age groups and why?
 
-**Analysis - Question 1**
+**Analysis - Question 1: Sleep efficiency by age generation **
 
-Sleep efficiency studies for specific age groups, have documented sleep efficiency for the aged (Desjardins et al.,2019) or sleep efficiency studies by lifespan (Kocevska et al., 2021).
+Sleep efficiency studies for specific age groups, have documented sleep efficiency for the aged (Desjardins et al.,2019) or sleep efficiency studies by lifespan (Kocevska et al., 2021). 
 
-**Sleep efficiency by age generation**
-This subsection will first look at sleep efficiency using age grouped by generation. Using the generational age groupings (Library of Congress, n.d.) ages of subjects were catgorised.
+This subsection will first look at sleep efficiency using age grouped by generation. Using the generational age groupings (Library of Congress, n.d.) ages of subjects were catgorised.  Generation Alpha shows results for 9-11 years, Generation Z for 12-26 years, Millenial for 27-42 years, Generation X for 43-58 years and the Baby Boomers for 59-69 years.
 
 ```{r Visualizing the data generation-Exercise}
 age_exercise <- cleaned_data %>%
@@ -224,25 +225,29 @@ summary_by_gen_perc <- age_ex_percentile1 %>%
         Mean_Sleep_Efficiency = mean(S_efficiency, na.rm = TRUE)
     )
 
-colnames(summary_by_generation)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
-colnames(summary_by_gen_perc)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
+colnames(summary_by_generation)<- c("~","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
+colnames(summary_by_gen_perc)<- c("~","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
 
 ```
 
-```{r summary of sleepefficiency by age_generation ables}
+```{r }
 
 table1<- rbind(summary_by_generation, summary_by_gen_perc) %>% 
-                        kbl(caption = "Summary of Sleep Efficiency by Age Generation") %>%
-                        kable_classic(bootstrap_options = c("striped","hover"))
+                        kbl(align = NULL, caption = "Summary of sleep efficiency by age generation") %>%
+                        kable_classic(bootstrap_options = c("striped","hover")) %>%
+		pack_rows("Generation", 1, 4)  %>%
+		pack_rows("Percentile", 6, 4)
 table1
 
 ```
+
+The table above shows sleep efficiency averages for each of the six generations mentioned.  The data indicates that Generation Alpha has the least sleep efficiency with an average of 0.54 which is within the lowest 10% of the data set population, while Generation X shows the best sleep efficiency at 0.81 which is close to the top 25% sleep efficiency results.  We explore this further in Figure 2.1 below.  
 
 ```{r figure of sleep efficiency to age_generation}
 
 fig1_age<- ggplot(age_ex_percentile1, aes(age_group, y=S_efficiency))
 fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
-            labs( title. = "Percentile of sleep efficiency by age generation",
+            labs( title. = "Figure 2.1: Percentile of sleep efficiency by age generation",
                           x = "Generation",
                           y = "Sleep Efficiency (%)") +
                                 scale_y_continuous(labels = scales::percent) +
@@ -250,9 +255,8 @@ fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
 
 ```
 
-**Analysis - Question 2**
 
-##### Sleep efficiency by exercise frequency
+**Analysis - Question 2: Sleep efficiency by exercise frequency**
 This subsection analyses sleep efficiency by exercise frequency, taking into account the generation of each individual in the dataset.
 
 ```{r Visualizing the data generation-Excercise1}
@@ -290,11 +294,13 @@ colnames(summary_by_Exfr_perc)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","
 
 ```
 
-```{r summary of sleepefficiency by exercise frequency tables}
+```{r }
 
 table2<- rbind(summary_by_Exfrequency, summary_by_Exfr_perc) %>% 
-                        kbl(caption = "Summary of Sleep Efficiency by Exercise Frequency") %>%
-                        kable_classic(bootstrap_options = c("striped","hover"))
+                        kbl(align=NULL, caption = "Summary of sleep efficiency by exercise frequency") %>%
+                        kable_classic(bootstrap_options = c("striped","hover")) %>%
+		pack_rows("Frequency", 1, 4)  %>%
+		pack_rows("Percentile", 4, 4)
 table2
 
 ```
@@ -309,7 +315,7 @@ age_exercise_1 %>%
                 geom_abline() +
                 geom_jitter(width = 0.1, height=0.1) +
                     facet_wrap(~age_group, scales = "fixed") +
-                        labs( title. = "Sleep efficiency by exercise frequency & generation",
+                        labs( title. = "Figure 2.2: Sleep efficiency by exercise frequency & generation",
                           x = "Exercise frequency",
                           y = "Sleep efficiency")
 ```
