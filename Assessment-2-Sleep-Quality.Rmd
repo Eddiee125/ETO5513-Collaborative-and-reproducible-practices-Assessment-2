@@ -326,7 +326,7 @@ I have two research questions:
 
 1:How do these variables impact quality of sleep independently?
 
-2:Does one variable moderate on the other? (Maybe the impact of alcohol increases with age.)
+2:How do these variables interact? Does one variable impact the magnitude of (moderate) the effect of the other? 
 
 **Analysis - Question 1**
 
@@ -388,9 +388,9 @@ Sleep efficiency appears to peak from 29-59.
 
 **Analysis - Question 2**
 
-Next is to determine if one variable moderates the effectiveness of the other.
+Next is to determine if and how these variables interact.
 
-I first chart these variables together to get a view at a glance.
+I first chart these variables against each other to see if they interact directly.
 ```{r Age against sleep efficiency}
 
 Alcohol_list <- list(
