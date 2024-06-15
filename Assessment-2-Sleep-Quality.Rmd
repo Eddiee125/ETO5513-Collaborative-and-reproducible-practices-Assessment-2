@@ -462,6 +462,9 @@ interactions::interact_plot(Moderation_model2, pred = Age, modx = Alcohol.consum
 The moderation effect is stronger here, but small. 
 
 #### Conclusion:
+
+From Section 2 we found that Generation Alpha has the least sleep efficiency, while Generation X on average have the highest sleep efficiency.  This was also inline with the results for exercise frequency,  where Generation Alpha is the standout with low exercise and low sleep efficiency and  Generation X showing a majority of medium exercise corresponding to higher sleep efficiency.  Curiously, Millennials show a clustering of above average 0.8 sleep efficiency even with low exercise, which may be due to other lifestyle factors and a more resilient age.
+
 Using regression, Adrian found a weaker than expected link between age, alcohol consumption and several measures of sleep quality. 
 
 When comparing variables against sleep efficiency, Age seemed to have a more significant positive effect between 29-59. Alcohol seemed to have a more significant effect than regression indicated, though its influence peaked at a middling dose. He also identified a very weak moderation effect between age and alcohol consumption.
