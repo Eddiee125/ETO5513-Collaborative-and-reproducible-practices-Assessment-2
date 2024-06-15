@@ -77,8 +77,7 @@ print(summary(raw_data))
  
 
 The data set provides comprehensive information on sleep quality and related factors for 452 individuals. The data set includes demographic information such as age (9-69 years), and gender. Detailed sleep metrics recorded include bedtime, waketime, total sleep duration, number of awakenings during the night and sleep efficiency. Additionally, the dataset measures the percentage of sleep spent in different stages: REM, deep, and light sleep. The "Sleep efficiency" feature is a measure of the proportion of time spent asleep in bed.  
- 
- 
+
 Beyond sleep-specific data, the dataset captures lifestyle factors that influence sleep quality. These factors include caffeine/alcohol consumption, smoking status, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering insights into how behaviors and characteristics impact sleep patterns and efficiency.
 
 The table above summarises important information about the variables.
@@ -323,6 +322,8 @@ age_exercise_1 %>%
 
 ### Age and alcohol consumption analysis:
 
+- Adrian Pouflis
+
 **Research Question**
 
 As identified earlier using regression, age and alcohol consumption have significant impacts on sleep efficiency. Alcohol consumption had a significantly larger magnitude of impact than age, its direction was negative.
@@ -364,7 +365,7 @@ summary_by_alcohol <- alcohol_data %>%
         Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
     )
 
-summary_by_alcohol
+kable(summary_by_alcohol)
 ```
 
 The relationship between alcohol and sleep efficiency is uncertain, lower doses of alcohol see higher efficiency, but the value spikes at dose 3.
@@ -372,25 +373,62 @@ The relationship between alcohol and sleep efficiency is uncertain, lower doses 
 I both tabled age bands and charted age against efficiency:
 
 ```{r Age against sleep efficiency}
-Age_bands <- cut(cleaned_data$Age, c(seq(9, 70, by = 1), Inf), include.lowest = TRUE)
+Age_bands <- cut(cleaned_data$Age, c(seq(9, 70, by = 5), Inf), include.lowest = TRUE)
 
 chart_data_frame <- aggregate(Sleep.efficiency ~ Age, cleaned_data, mean)
 
-aggregate(Sleep.efficiency ~ Age_bands, cleaned_data, mean)
+age_table <- aggregate(Sleep.efficiency ~ Age_bands, cleaned_data, mean)
+
+kable(age_table)
 
 ggplot(data=chart_data_frame,aes(x=Age, y=Sleep.efficiency)) +
                 geom_line() + 
                 scale_x_continuous(name = "Age", breaks=seq(9,69,5)) +
                         labs( title. = "Sleep efficiency by Age",
                           y = "Sleep efficiency")
+
+
 ```
+
 Sleep efficiency appears to peak from 29-59.
 
 **Analysis - Question 2**
 
 Next is to determine if one variable moderates the effectiveness of the other.
 
-I will use moderation analysis, a variant on the linear regression already performed.
+I first chart these variables together to get a view at a glance.
+```{r Age against sleep efficiency}
+
+Alcohol_list <- list(
+  '-1.14690721659585'="0",
+  '-0.146907216494845'="1",
+  '0.853092783505155'="2",
+  '3'="3",
+  '4'="4",
+  '5'="5")
+
+
+#Try to plot sleep efficiency for each age at each alcohol dose, facet by alcohol dose
+Age_Alcohol_Consumption_Plot <- 
+    ggplot(cleaned_data, aes(x = Age, y = Sleep.efficiency,color=as.factor(Alcohol.consumption))) +
+    geom_line()+
+    facet_wrap(as.factor(Alcohol.consumption)) +
+    scale_color_manual(labels = c(0,1,2,3,4,5),values = c("blue", "red","black","yellow","purple","brown")) +
+    labs( title = "Relationship between age and sleep efficiency by alcohol consumption",
+          x = "Age",
+          y = "Sleep Efficiency",
+          color = "Alcohol Dose") +
+          theme(
+          strip.background = element_blank(),
+          strip.text.x = element_blank()
+          )
+
+Age_Alcohol_Consumption_Plot
+```
+These graphs are erratic and show no clear pattern.
+
+
+Next, I will use moderation analysis, a variant on the linear regression already performed.
 ```{r Moderation analysis between alcohol consumption and age}
 # Perform regression, this time using a different formula to determine moderation effect
 Moderation_model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender + Age * Alcohol.consumption, data = cleaned_data)
@@ -417,6 +455,7 @@ interactions::interact_plot(Moderation_model2, pred = Age, modx = Alcohol.consum
 
 
 ```
+
 The moderation effect is stronger here, but small. 
 
 #### Conclusion:
