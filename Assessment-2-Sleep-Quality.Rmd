@@ -282,6 +282,22 @@ Further examination of the data reveals distinct patterns based on gender and ex
 
 This proves the significant correlation shown by the linear model at the beginning of this work.
 
+
+#### Responding to the research questions:
+
+1) **What is the level of exercise presented by gender and what is the impact of it on sleep quality?**
+
+The level of exercise presented by gender shows that both males and females engage in varying frequencies of exercise per week, ranging from no exercise to exercising 5 days a week. The impact of exercise on sleep quality is evident in both genders. For females, high sleep efficiency (above 0.8) is maintained across different exercise frequencies, with a concentration of sleep durations around 7 to 8 hours. Similarly, males also exhibit high sleep efficiency with increased exercise frequency, particularly between 3 to 5 days per week, and maintain a sleep duration of 7 to 8 hours. This indicates that regular exercise contributes positively to sleep efficiency for both genders. However, the impact is slightly more pronounced in males, who show a stronger concentration of high sleep efficiencies at higher exercise levels.
+
+2) **Is there a bias or preference for each gender when talking about the exercise levels (times per week exercise is done)? If so, what is it for each gender?**
+
+Yes, there appears to be a bias or preference in exercise levels between genders. Females tend to have a more evenly spread distribution across different exercise levels but generally show a higher average sleep efficiency with fewer exercise sessions per week. Males, on the other hand, tend to exercise more frequently, with a noticeable concentration at higher exercise levels (3 to 5 days per week), and exhibit a higher sleep efficiency, particularly at these higher exercise frequencies. This suggests that while females achieve high sleep efficiency with less frequent exercise, males prefer and perhaps benefit more from higher levels of physical activity to achieve optimal sleep efficiency.
+
+### Age-generation and exercise analysis:
+This section will focus on answering two questions involving sleep efficiency, and using the two variables age grouped by generation and exercise frequency.
+
+
+
 ### Age-generation and exercise analysis by *Savaira Manoa*
 This section will focus on answering two questions involving sleep efficiency using the two variables, age grouped by generation and exercise frequency.
 
