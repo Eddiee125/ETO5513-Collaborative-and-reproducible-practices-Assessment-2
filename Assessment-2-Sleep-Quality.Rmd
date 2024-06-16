@@ -594,6 +594,16 @@ Using regression, Adrian found a weaker than expected link between age, alcohol 
 When comparing variables against sleep efficiency, Age seemed to have a more significant positive effect between 29-59. Alcohol seemed to have a more significant effect than regression indicated, though its influence peaked at a middling dose. He also identified a very weak moderation effect between age and alcohol consumption.
 
 
+
+
+#### General Conclusions:
+
+For both sexes, exercise positively impacts sleep efficiency. Males show a stronger concentration of high sleep efficiencies at higher exercise levels, while females achieve high sleep efficiency with fewer exercise sessions per week. Additionally, the relationship between alcohol consumption and sleep efficiency is more nuanced. Lower doses of alcohol are associated with higher sleep efficiency, but this effect peaks and diminishes with higher doses. Sleep duration also plays a crucial role; both males and females maintain high sleep efficiency with sleep durations primarily ranging between 7 to 8 hours. Regular exercise combined with moderate alcohol consumption and consistent sleep duration significantly enhances overall sleep quality across genders.
+When examining sleep efficiency by generation, Generation X shows the highest sleep efficiency, correlating with medium exercise frequency, while Generation Alpha has the lowest sleep efficiency, likely due to low exercise frequency. Regular exercise significantly enhances sleep efficiency across all generations, although Generation Alpha shows lower efficiency, possibly due to fewer data points.
+Regular exercise and age independently influence sleep efficiency, with higher exercise frequency and middle age (29-59) positively affecting sleep efficiency. The interaction between these variables suggests that while both positively impact sleep efficiency, males benefit more from higher exercise frequencies. This combined effect highlights the importance of maintaining a balanced lifestyle to achieve optimal sleep quality.
+
+
+
 #### Citations:
 
 Desjardins, S., Lapierre, S., Hudon, C., & Desgagné, A. (2019). Factors involved in sleep efficiency: a population-based study of community-dwelling elderly persons. Sleep (New York, N.Y.), 42(5), 1-. https://doi.org/10.1093/sleep/zsz038
