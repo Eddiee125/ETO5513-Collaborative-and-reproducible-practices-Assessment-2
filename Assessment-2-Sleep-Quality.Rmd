@@ -283,9 +283,21 @@ Both males and females engage in varying frequencies of exercise per week, from 
 **Is there a bias or preference for each gender when talking about exercise levels (times per week exercise is done)? If so, what is it for each gender?**
 Yes, there is a bias. Females have a more evenly spread exercise pattern but achieve high sleep efficiency with fewer exercise sessions. Males prefer higher exercise frequencies (3 to 5 days per week) and exhibit higher sleep efficiency at these levels. This suggests that while females achieve high sleep efficiency with less frequent exercise, males benefit more from higher levels of physical activity for optimal sleep efficiency.
 
+<<<<<<< HEAD
 These observations underscore the importance of regular physical activity and a stable sleep schedule for promoting high sleep efficiency and overall sleep quality.
 
 
+=======
+#### Responding to the research questions:
+
+1) **What is the level of exercise presented by gender and what is the impact of it on sleep quality?**
+
+The level of exercise presented by gender shows that both males and females engage in varying frequencies of exercise per week, ranging from no exercise to exercising 5 days a week. The impact of exercise on sleep quality is evident in both genders. For females, high sleep efficiency (above 0.8) is maintained across different exercise frequencies, with a concentration of sleep durations around 7 to 8 hours. Similarly, males also exhibit high sleep efficiency with increased exercise frequency, particularly between 3 to 5 days per week, and maintain a sleep duration of 7 to 8 hours. This indicates that regular exercise contributes positively to sleep efficiency for both genders. However, the impact is slightly more pronounced in males, who show a stronger concentration of high sleep efficiencies at higher exercise levels.
+
+2) **Is there a bias or preference for each gender when talking about the exercise levels (times per week exercise is done)? If so, what is it for each gender?**
+
+Yes, there appears to be a bias or preference in exercise levels between genders. Females tend to have a more evenly spread distribution across different exercise levels but generally show a higher average sleep efficiency with fewer exercise sessions per week. Males, on the other hand, tend to exercise more frequently, with a noticeable concentration at higher exercise levels (3 to 5 days per week), and exhibit a higher sleep efficiency, particularly at these higher exercise frequencies. This suggests that while females achieve high sleep efficiency with less frequent exercise, males prefer and perhaps benefit more from higher levels of physical activity to achieve optimal sleep efficiency.
+>>>>>>> a1b89e370fceaf8e44e7fc3e6b70922bb5b2d088
 
 ### Age-generation and exercise analysis by *Savaira Manoa*
 This section will focus on answering two questions involving sleep efficiency using the two variables, age grouped by generation and exercise frequency.
@@ -355,7 +367,7 @@ The table above shows sleep efficiency averages for each of the six generations 
 ```{r figure of sleep efficiency to age_generation}
 
 fig1_age<- ggplot(age_ex_percentile1, aes(age_group, y=S_efficiency))
-fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
+fig1_age + geom_line(aes(linetype = percentile, group = percentile, color = percentile)) +
             labs( title. = "Percentile of sleep efficiency by age generation",
                           x = "Generation",
                           y = "Sleep Efficiency (%)") +
@@ -434,6 +446,8 @@ age_exercise_1 %>%
 
 The Figure above shows by generation, which exercise frequencies are more or less popular.  Generation Alpha is the standout with low exercise which explains their low sleep efficiency, but may also be due to a lower sample number.  Generation X shows a majority of medium exercise frequency which explains the higher sleep efficiency.  The results for Millennials curiously show a clustering of over 0.8 sleep efficiency even with low exercise, which is above the average of 0.75.  This may be due to other lifestyle factors and a more resilient age.
 
+**Conclusion**
+In the Age Generation by Exercise analysis section by Savaira, we found that Generation Alpha has the least sleep efficiency, while Generation X on average have the highest sleep efficiency.  This was also inline with the results for exercise frequency,  where Generation Alpha is the standout with low exercise and low sleep efficiency and  Generation X showing a majority of medium exercise corresponding to higher sleep efficiency.  Curiously, Millennials show a clustering of above average 0.8 sleep efficiency even with low exercise, which may be due to other lifestyle factors and a more resilient age.
 
 ### Age and alcohol consumption analysis:
 
@@ -576,13 +590,9 @@ The moderation effect is stronger here, but small.
 
 #### Conclusion:
 
-In the Age Generation by Exercise analysis section by Savaira, we found that Generation Alpha has the least sleep efficiency, while Generation X on average have the highest sleep efficiency.  This was also inline with the results for exercise frequency,  where Generation Alpha is the standout with low exercise and low sleep efficiency and  Generation X showing a majority of medium exercise corresponding to higher sleep efficiency.  Curiously, Millennials show a clustering of above average 0.8 sleep efficiency even with low exercise, which may be due to other lifestyle factors and a more resilient age.
-
 Using regression, Adrian found a weaker than expected link between age, alcohol consumption and several measures of sleep quality. 
 
 When comparing variables against sleep efficiency, Age seemed to have a more significant positive effect between 29-59. Alcohol seemed to have a more significant effect than regression indicated, though its influence peaked at a middling dose. He also identified a very weak moderation effect between age and alcohol consumption.
-
-
 
 
 #### General Conclusions:
