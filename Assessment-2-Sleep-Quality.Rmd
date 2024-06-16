@@ -282,9 +282,6 @@ Further examination of the data reveals distinct patterns based on gender and ex
 
 This proves the significant correlation shown by the linear model at the beginning of this work.
 
-### Age-generation and exercise analysis:
-This section will focus on answering two questions involving sleep efficiency, and using the two variables age grouped by generation and exercise frequency.
-
 ### Age-generation and exercise analysis by *Savaira Manoa*
 This section will focus on answering two questions involving sleep efficiency using the two variables, age grouped by generation and exercise frequency.
 
