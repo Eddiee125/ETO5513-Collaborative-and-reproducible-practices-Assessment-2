@@ -309,7 +309,7 @@ table2
 
 ```
 
-The table above shows sleep efficiency by the three chosen frequencies of exercise:  low represents nil or 1 frequency, medium represents 2 or 3 and high greater than 3.  Sleep efficiency on average is higher with high exercise.  Exploring this further by generation, we look at the table above together with Figure below.
+The table above shows sleep efficiency by the three chosen frequencies of exercise:  low represents nil or 1 frequency, medium represents 2 or 3 and high greater than 3.  Sleep efficiency on average is higher with high exercise.  Exploring this further by generation, we look at the table above together with the Figure below.
 
 ```{r figure of sleep efficiency to exercise frequency by generation}
 
@@ -324,7 +324,7 @@ age_exercise_1 %>%
                           y = "Sleep efficiency")
 ```
 
-Figure 2.2 shows by generation, which exercise frequencies are more or less popular.  Generation Alpha is the standout with low exercise which explains their low sleep efficiency, but may also be due to a lower sample number.  Generation X shows a majority of medium exercise frequency which explains the higher sleep efficiency.  The results for Millennials curiously show a clustering of over 0.8 sleep efficiency even with low exercise, which is above the average of 0.75.  This may be due to other lifestyle factors and a more resilient age.
+The Figure above shows by generation, which exercise frequencies are more or less popular.  Generation Alpha is the standout with low exercise which explains their low sleep efficiency, but may also be due to a lower sample number.  Generation X shows a majority of medium exercise frequency which explains the higher sleep efficiency.  The results for Millennials curiously show a clustering of over 0.8 sleep efficiency even with low exercise, which is above the average of 0.75.  This may be due to other lifestyle factors and a more resilient age.
 
 
 ### Age and alcohol consumption analysis:
