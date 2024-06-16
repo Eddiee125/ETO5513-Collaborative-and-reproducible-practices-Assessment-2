@@ -116,7 +116,7 @@ summary(Linear_model)
 
 The linear model analysis reveals several significant relationships between the predictors and sleep efficiency. The model explains about 25.84% of the variability in sleep efficiency (R-squared = 0.2584). Key predictors such as age, alcohol consumption, and exercise frequency have significant effects on sleep efficiency, while caffeine consumption is not a significant predictor. The intercept indicates the baseline sleep efficiency when all predictors are at zero, and the overall model is statistically significant (p-value < 2.2e-16).
 
-**Specific Observations:**
+**Highlights:**
 
  - Gender:
 Coefficient for Gender (Male): -0.0219210
@@ -130,15 +130,15 @@ Coefficient for Exercise Frequency: 0.0261673
 
 **Significance:** This relationship is highly significant (p = 1.72e-09), indicating a strong positive impact of exercise on sleep efficiency.
 
-**Summary:**
-The linear model highlights that while gender has a marginal impact on sleep efficiency, exercise frequency has a robust positive effect. These insights can inform strategies to improve sleep quality, particularly emphasizing the benefits of regular exercise.
+
+In summary, the linear model highlights that while gender has a marginal impact on sleep efficiency, exercise frequency has a robust positive effect. These insights can inform strategies to improve sleep quality, particularly emphasizing the benefits of regular exercise.
 
 
 
 
 After understanding the relevant variables that affect the "Sleeping Efficiency" it is important to visualize how the current information is, and then proceed to work on more relationships with the help of the model elaborated:
 
-First of all, it is important to understand what is the average exercise level and reported sleeping quality per gender:
+First of all, it is important to understand what are the exercise, sleep efficiencies and Duration levels per gender:
 
 
 ```{r Visualizing the data Gender-Excercise 4}
@@ -166,6 +166,26 @@ summary_by_gender <- gender_exercise %>%
 
 ```{r Printint the tables}
 kable(summary_by_gender, caption = "Summary of Sleep Efficiency by Gender")
+```
+
+
+```{r sleep duration by gender}
+# Creating the summary table
+SD_by_gender <- gender_exercise %>%
+    group_by(Gender) %>%
+    summarise(
+        Min_Sleep_Duration = trunc2(min(Sleep.duration, na.rm = TRUE)),
+        Max_Sleep_Duration = trunc2(max(Sleep.duration, na.rm = TRUE)),
+        Average_Duration = trunc2(mean(Sleep.duration, na.rm = TRUE)),
+        Average_exercise_levels = trunc2(mean(Exercise.frequency, na.rm  = TRUE))
+    )
+
+# Creating and style the table with better alignment
+SD_by_gender %>%
+  kbl(align = 'c', caption = "Summary of Sleep Duration and Exercise Levels by Gender") %>%
+  kable_classic(bootstrap_options = c("striped", "hover")) %>%
+  pack_rows("Gender Summary", 1, nrow(SD_by_gender)) %>%
+  column_spec(2:5, width = "5em")  
 ```
 
 
@@ -264,14 +284,14 @@ ggplot(gender_exercise, aes(x = Sleep.duration, fill = Gender)) +
 
 **Observations on the plots:**
 
-The visualizations analyze the relationship between sleep duration, sleep efficiency, exercise frequency, and gender. For females, scatter plots show sleep efficiency remains high (above 0.8) across various sleep durations, particularly around 7 to 8 hours. Males also maintain high sleep efficiency, though with more variability, especially between 6 and 9 hours.
+1) The visualizations analyze the relationship between sleep duration, sleep efficiency, exercise frequency, and gender. For females, scatter plots show sleep efficiency remains high (above 0.8) across various sleep durations, particularly around 7 to 8 hours. Males also maintain high sleep efficiency, though with more variability, especially between 6 and 9 hours.
 
-The Histograms reveal that both genders concentrate sleep durations around 7 to 8 hours, regardless of exercise frequency. Non-exercisers and those exercising 1 day a week show similar patterns, with females slightly higher. As exercise frequency increases to 2 days, the 7 to 8-hour trend persists, particularly for females. For 3 days of exercise, males show a higher count within this range. The pattern continues for those exercising 4 and 5 days, despite fewer data points.
+2) The Histograms reveal that both genders concentrate sleep durations around 7 to 8 hours, regardless of exercise frequency. Non-exercisers and those exercising 1 day a week show similar patterns, with females slightly higher. As exercise frequency increases to 2 days, the 7 to 8-hour trend persists, particularly for females. For 3 days of exercise, males show a higher count within this range. The pattern continues for those exercising 4 and 5 days, despite fewer data points.
 
 Overall, the data suggests both genders maintain high sleep efficiency with consistent sleep durations of 7 to 8 hours, regardless of exercise frequency. Regular exercise enhances sleep quality, emphasizing the importance of consistent sleep duration.
 
 
-#### General conclusions: 
+#### General conclusions of the section: 
 
 The analysis of sleep efficiency in relation to exercise frequency and gender reveals that a significant portion of the population enjoys high sleep efficiency, particularly as exercise frequency increases. Many individuals exhibit sleep efficiencies closer to 1.0, especially at frequencies of 3 and 5 days per week. This trend implies that regular exercise contributes to better sleep efficiency, reinforcing the benefits of physical activity on sleep quality. Notably, individuals who exercise more frequently tend to maintain higher sleep efficiency, highlighting the importance of an active lifestyle for achieving optimal sleep.
 
@@ -283,21 +303,7 @@ Both males and females engage in varying frequencies of exercise per week, from 
 **Is there a bias or preference for each gender when talking about exercise levels (times per week exercise is done)? If so, what is it for each gender?**
 Yes, there is a bias. Females have a more evenly spread exercise pattern but achieve high sleep efficiency with fewer exercise sessions. Males prefer higher exercise frequencies (3 to 5 days per week) and exhibit higher sleep efficiency at these levels. This suggests that while females achieve high sleep efficiency with less frequent exercise, males benefit more from higher levels of physical activity for optimal sleep efficiency.
 
-<<<<<<< HEAD
-These observations underscore the importance of regular physical activity and a stable sleep schedule for promoting high sleep efficiency and overall sleep quality.
 
-
-=======
-#### Responding to the research questions:
-
-1) **What is the level of exercise presented by gender and what is the impact of it on sleep quality?**
-
-The level of exercise presented by gender shows that both males and females engage in varying frequencies of exercise per week, ranging from no exercise to exercising 5 days a week. The impact of exercise on sleep quality is evident in both genders. For females, high sleep efficiency (above 0.8) is maintained across different exercise frequencies, with a concentration of sleep durations around 7 to 8 hours. Similarly, males also exhibit high sleep efficiency with increased exercise frequency, particularly between 3 to 5 days per week, and maintain a sleep duration of 7 to 8 hours. This indicates that regular exercise contributes positively to sleep efficiency for both genders. However, the impact is slightly more pronounced in males, who show a stronger concentration of high sleep efficiencies at higher exercise levels.
-
-2) **Is there a bias or preference for each gender when talking about the exercise levels (times per week exercise is done)? If so, what is it for each gender?**
-
-Yes, there appears to be a bias or preference in exercise levels between genders. Females tend to have a more evenly spread distribution across different exercise levels but generally show a higher average sleep efficiency with fewer exercise sessions per week. Males, on the other hand, tend to exercise more frequently, with a noticeable concentration at higher exercise levels (3 to 5 days per week), and exhibit a higher sleep efficiency, particularly at these higher exercise frequencies. This suggests that while females achieve high sleep efficiency with less frequent exercise, males prefer and perhaps benefit more from higher levels of physical activity to achieve optimal sleep efficiency.
->>>>>>> a1b89e370fceaf8e44e7fc3e6b70922bb5b2d088
 
 ### Age-generation and exercise analysis by *Savaira Manoa*
 This section will focus on answering two questions involving sleep efficiency using the two variables, age grouped by generation and exercise frequency.
