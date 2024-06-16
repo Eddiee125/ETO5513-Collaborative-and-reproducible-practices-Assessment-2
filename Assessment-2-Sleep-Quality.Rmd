@@ -26,6 +26,7 @@ knitr::opts_chunk$set(
 #### Section 1: Loading the libraries
 ```{r Loading the libraries, include=FALSE}
 # Loading the libraries
+library(report)
 library(dplyr)
 library(tidyr)
 library(knitr)
@@ -465,6 +466,7 @@ interactions::interact_plot(Moderation_model2, pred = Age, modx = Alcohol.consum
 
 The moderation effect is stronger here, but small. 
 
+
 #### Conclusion:
 
 In the Age Generation by Exercise analysis section by Savaira, we found that Generation Alpha has the least sleep efficiency, while Generation X on average have the highest sleep efficiency.  This was also inline with the results for exercise frequency,  where Generation Alpha is the standout with low exercise and low sleep efficiency and  Generation X showing a majority of medium exercise corresponding to higher sleep efficiency.  Curiously, Millennials show a clustering of above average 0.8 sleep efficiency even with low exercise, which may be due to other lifestyle factors and a more resilient age.
@@ -482,3 +484,9 @@ Equilibrium. (2023). *Sleep efficiency* [Data set]. Kaggle. [https://www.kaggle.
 Kocevska, D., Lysen, T. S., Dotinga, A., Koopman-Verhoeff, M. E., Luijk, M. P. C. M., Antypa, N., Biermasz, N. R., Blokstra, A., Brug, J., Burk, W. J., Comijs, H. C., Corpeleijn, E., Dashti, H. S., de Bruin, E. J., de Graaf, R., Derks, I. P. M., Dewald-Kaufmann, J. F., Elders, P. J. M., Gemke, R. J. B. J., … Tiemeier, H. (2021). Sleep characteristics across the lifespan in 1.1 million people from the Netherlands, United Kingdom and United States: a systematic review and meta-analysis. Nature Human Behaviour, 5(1), 113–122. https://doi.org/10.1038/s41562-020-00965-x
 
 Library of Congress. (n.d.). *Doing Consumer Research:A Resource Guide/Generations* (https://www.guides.loc.gov/consumer-research/market-segments/generations)
+
+Package citations:
+
+```{r Citations}
+cite_packages()
+```
