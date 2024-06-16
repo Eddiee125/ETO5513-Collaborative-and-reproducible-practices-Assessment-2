@@ -421,7 +421,7 @@ Age_Alcohol_Consumption_Plot <-
     ggplot(cleaned_data, aes(x = Age, y = Sleep.efficiency,color=as.factor(Alcohol.consumption))) +
     geom_line()+
     facet_wrap(cleaned_data$Alcohol.consumption) +
-    scale_color_manual(labels = c(0,1,2,3,4,5),values = c("blue", "red","black","yellow","purple","brown")) +
+    scale_color_manual(labels = c(0,1,2,3,4,5),values = c("blue", "red","black","darkgreen","purple","brown")) +
     labs( title = "Relationship between age and sleep efficiency by alcohol consumption",
           x = "Age",
           y = "Sleep Efficiency",
