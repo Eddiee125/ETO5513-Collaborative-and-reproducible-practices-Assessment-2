@@ -380,7 +380,7 @@ The relationship between alcohol and sleep efficiency is uncertain, lower doses 
 
 I both tabled age bands and charted age against efficiency:
 
-```{r Age against sleep efficiency}
+```{r Age against sleep efficiency Adrian}
 Age_bands <- cut(cleaned_data$Age, c(seq(9, 70, by = 5), Inf), include.lowest = TRUE)
 
 chart_data_frame <- aggregate(Sleep.efficiency ~ Age, cleaned_data, mean)
