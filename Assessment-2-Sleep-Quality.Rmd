@@ -293,11 +293,6 @@ The level of exercise presented by gender shows that both males and females enga
 
 Yes, there appears to be a bias or preference in exercise levels between genders. Females tend to have a more evenly spread distribution across different exercise levels but generally show a higher average sleep efficiency with fewer exercise sessions per week. Males, on the other hand, tend to exercise more frequently, with a noticeable concentration at higher exercise levels (3 to 5 days per week), and exhibit a higher sleep efficiency, particularly at these higher exercise frequencies. This suggests that while females achieve high sleep efficiency with less frequent exercise, males prefer and perhaps benefit more from higher levels of physical activity to achieve optimal sleep efficiency.
 
-### Age-generation and exercise analysis:
-This section will focus on answering two questions involving sleep efficiency, and using the two variables age grouped by generation and exercise frequency.
-
-
-
 ### Age-generation and exercise analysis by *Savaira Manoa*
 This section will focus on answering two questions involving sleep efficiency using the two variables, age grouped by generation and exercise frequency.
 
@@ -366,7 +361,7 @@ The table above shows sleep efficiency averages for each of the six generations 
 ```{r figure of sleep efficiency to age_generation}
 
 fig1_age<- ggplot(age_ex_percentile1, aes(age_group, y=S_efficiency))
-fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
+fig1_age + geom_line(aes(linetype = percentile, group = percentile, color = percentile)) +
             labs( title. = "Percentile of sleep efficiency by age generation",
                           x = "Generation",
                           y = "Sleep Efficiency (%)") +
@@ -445,6 +440,8 @@ age_exercise_1 %>%
 
 The Figure above shows by generation, which exercise frequencies are more or less popular.  Generation Alpha is the standout with low exercise which explains their low sleep efficiency, but may also be due to a lower sample number.  Generation X shows a majority of medium exercise frequency which explains the higher sleep efficiency.  The results for Millennials curiously show a clustering of over 0.8 sleep efficiency even with low exercise, which is above the average of 0.75.  This may be due to other lifestyle factors and a more resilient age.
 
+**Conclusion**
+In the Age Generation by Exercise analysis section by Savaira, we found that Generation Alpha has the least sleep efficiency, while Generation X on average have the highest sleep efficiency.  This was also inline with the results for exercise frequency,  where Generation Alpha is the standout with low exercise and low sleep efficiency and  Generation X showing a majority of medium exercise corresponding to higher sleep efficiency.  Curiously, Millennials show a clustering of above average 0.8 sleep efficiency even with low exercise, which may be due to other lifestyle factors and a more resilient age.
 
 ### Age and alcohol consumption analysis:
 
@@ -587,13 +584,9 @@ The moderation effect is stronger here, but small.
 
 #### Conclusion:
 
-In the Age Generation by Exercise analysis section by Savaira, we found that Generation Alpha has the least sleep efficiency, while Generation X on average have the highest sleep efficiency.  This was also inline with the results for exercise frequency,  where Generation Alpha is the standout with low exercise and low sleep efficiency and  Generation X showing a majority of medium exercise corresponding to higher sleep efficiency.  Curiously, Millennials show a clustering of above average 0.8 sleep efficiency even with low exercise, which may be due to other lifestyle factors and a more resilient age.
-
 Using regression, Adrian found a weaker than expected link between age, alcohol consumption and several measures of sleep quality. 
 
 When comparing variables against sleep efficiency, Age seemed to have a more significant positive effect between 29-59. Alcohol seemed to have a more significant effect than regression indicated, though its influence peaked at a middling dose. He also identified a very weak moderation effect between age and alcohol consumption.
-
-
 
 
 #### General Conclusions:
