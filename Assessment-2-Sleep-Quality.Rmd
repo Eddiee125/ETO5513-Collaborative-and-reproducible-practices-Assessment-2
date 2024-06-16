@@ -242,7 +242,7 @@ table1
 
 ```
 
-The table above shows sleep efficiency averages for each of the six generations mentioned.  The data indicates that Generation Alpha has the least sleep efficiency with an average of 0.54 which is within the lowest 10% of the data set population, while Generation X shows the best sleep efficiency at 0.81 which is close to the top 25% sleep efficiency results.  We explore this further in Figure 2.1 below.    
+The table above shows sleep efficiency averages for each of the six generations mentioned.  The data indicates that Generation Alpha has the least sleep efficiency with an average of 0.54 which is within the lowest 10% of the data set population, while Generation X shows the best sleep efficiency at 0.81 which is close to the top 25% sleep efficiency results.  
 
 ```{r figure of sleep efficiency to age_generation}
 
@@ -255,7 +255,8 @@ fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
                             theme_classic()
 
 ```
-Figure above shows the percentiles of each generation for sleep efficiency.  When read in conjunction with the table above, Generation Alpha has sleep efficiency in the lower 50% of the population.  On average, the Baby Boomers have 0.75 sleep efficency which represents approximately 50% of their population within the dataset, Generation X has 0.81 sleep efficiency which represents approximately less than 50% of their population, the Millenials has 0.80 sleep efficiency which also represents less than 50% of their population, and Generation Z has 0.74 sleep efficiency representing less than 50% of their population.  Therefore, on average Generation X have the highest sleep efficiency, but this represents less than half of their population. 
+
+We explore this further in the Figure above.  The Figure shows the percentiles of each generation for sleep efficiency.  When read in conjunction with the table above, Generation Alpha has sleep efficiency in the lower 50% of the population.  On average, the Baby Boomers have 0.75 sleep efficency which represents approximately 50% of their population within the dataset, Generation X has 0.81 sleep efficiency which represents approximately less than 50% of their population, the Millenials has 0.80 sleep efficiency which also represents less than 50% of their population, and Generation Z has 0.74 sleep efficiency representing less than 50% of their population.  Therefore, on average Generation X have the highest sleep efficiency, but this represents less than half of their population. 
 
 
 **Analysis - Question 2: Sleep efficiency by exercise frequency**
