@@ -26,6 +26,7 @@ knitr::opts_chunk$set(
 #### Section 1: Loading the libraries
 ```{r Loading the libraries, include=FALSE}
 # Loading the libraries
+library(report)
 library(dplyr)
 library(tidyr)
 library(knitr)
@@ -78,8 +79,7 @@ print(summary(raw_data))
  
 
 The data set provides comprehensive information on sleep quality and related factors for 452 individuals. The data set includes demographic information such as age (9-69 years), and gender. Detailed sleep metrics recorded include bedtime, waketime, total sleep duration, number of awakenings during the night and sleep efficiency. Additionally, the dataset measures the percentage of sleep spent in different stages: REM, deep, and light sleep. The "Sleep efficiency" feature is a measure of the proportion of time spent asleep in bed.  
- 
- 
+
 Beyond sleep-specific data, the dataset captures lifestyle factors that influence sleep quality. These factors include caffeine/alcohol consumption, smoking status, and exercise frequency. Overall, this dataset is well-suited for investigating the relationships between sleep quality and various demographic and lifestyle factors, offering insights into how behaviors and characteristics impact sleep patterns and efficiency.
 
 The table above summarises important information about the variables.
@@ -205,6 +205,7 @@ print(Gender_Exercise_SE_Plot)
 ```
 
 
+
 Both the dot plot and the histogram display the distribution of sleep efficiency by exercise frequency and gender, revealing several important observations:
 
 1) The general shape of the distribution indicates that sleep efficiency tends to skew towards higher values, with many individuals exhibiting sleep efficiencies closer to 1.0. This suggests that a significant portion of the population enjoys high sleep efficiency. Additionally, a positive relationship between exercise frequency and sleep efficiency is apparent, particularly noticeable at exercise frequencies of 3 and 5 days per week, implying that regular exercise may contribute to better sleep efficiency.
@@ -284,18 +285,25 @@ This proves the significant correlation shown by the linear model at the beginni
 ### Age-generation and exercise analysis:
 This section will focus on answering two questions involving sleep efficiency, and using the two variables age grouped by generation and exercise frequency.
 
-**Research Question**
-1. Some sleep studies have shown that sleep efficiency differs between age groups. What are these differences within the data-set chosen for this study and are there any specific 'generations' that show generally better levels of sleep efficiency compared to others?
+### Age-generation and exercise analysis by *Savaira Manoa*
+This section will focus on answering two questions involving sleep efficiency using the two variables, age grouped by generation and exercise frequency.
+
+**Research Questions**
+
+1. Some sleep studies have shown that sleep efficiency differs between age groups. What are these differences within the dataset chosen for this study and are there any specific 'generations' that show generally better levels of sleep efficiency compared to others?
+
+
 2. Given the sleep efficiency data by generation discussed in question 1, and looking at specific life-style choices such as ensuring one exercises regularly, are levels of sleep efficiency still low amongst certain age groups and why?
 
-**Analysis - Question 1**
+**Analysis - Question 1: Sleep efficiency by age generation **
 
-Sleep efficiency studies for specific age groups, have documented sleep efficiency for the aged (Desjardins et al.,2019) or sleep efficiency studies by lifespan (Kocevska et al., 2021).
+Sleep efficiency studies for specific age groups, have documented sleep efficiency for the aged (Desjardins et al.,2019) or sleep efficiency studies by lifespan (Kocevska et al., 2021). 
 
-**Sleep efficiency by age generation**
-This subsection will first look at sleep efficiency using age grouped by generation. Using the generational age groupings (Library of Congress, n.d.) ages of subjects were catgorised.
+This subsection will first look at sleep efficiency using age grouped by generation. Using the generational age groupings (Library of Congress, n.d.) ages of subjects were catgorised.  Generation Alpha shows results for 9-11 years, Generation Z for 12-26 years, Millenial for 27-42 years, Generation X for 43-58 years and the Baby Boomers for 59-69 years.
 
 ```{r Visualizing the data generation-Exercise}
+#to arrange age data by generation and summarise
+
 age_exercise <- cleaned_data %>%
     mutate(age_group = cut (Age, breaks = c(9,12,27,43,59,70), include.lowest = T, labels = c("Gen_Alpha","Gen_Z","Millenial","Gen_X","Boomers")))
 
@@ -324,19 +332,23 @@ summary_by_gen_perc <- age_ex_percentile1 %>%
         Mean_Sleep_Efficiency = mean(S_efficiency, na.rm = TRUE)
     )
 
-colnames(summary_by_generation)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
-colnames(summary_by_gen_perc)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
+colnames(summary_by_generation)<- c("~","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
+colnames(summary_by_gen_perc)<- c("~","Min_Sleep_Efficiency","Max_Sleep_Efficiency", "Mean_Sleep_Efficiency")
 
 ```
 
-```{r summary of sleepefficiency by age_generation ables}
-
+```{r }
+#to show sleep efficiency averages in a table
 table1<- rbind(summary_by_generation, summary_by_gen_perc) %>% 
-                        kbl(caption = "Summary of Sleep Efficiency by Age Generation") %>%
-                        kable_classic(bootstrap_options = c("striped","hover"))
+                        kbl(align = NULL, caption = "Summary of sleep efficiency by age generation") %>%
+                        kable_classic(bootstrap_options = c("striped","hover")) %>%
+		pack_rows("Generation", 1, 4)  %>%
+		pack_rows("Percentile", 6, 4)
 table1
 
 ```
+
+The table above shows sleep efficiency averages for each of the six generations mentioned.  The data indicates that Generation Alpha has the least sleep efficiency with an average of 0.54 which is within the lowest 10% of the data set population, while Generation X shows the best sleep efficiency at 0.81 which is close to the top 25% sleep efficiency results.  
 
 ```{r figure of sleep efficiency to age_generation}
 
@@ -350,9 +362,11 @@ fig1_age + geom_line(aes(linetype = percentile, group = percentile)) +
 
 ```
 
-**Analysis - Question 2**
+We explore this further in the Figure above.  The Figure shows the percentiles of each generation for sleep efficiency.  When read in conjunction with the table above, Generation Alpha has sleep efficiency in the lower 50% of the population.  On average, the Baby Boomers have 0.75 sleep efficency which represents approximately 50% of their population within the dataset, Generation X has 0.81 sleep efficiency which represents approximately less than 50% of their population, the Millenials has 0.80 sleep efficiency which also represents less than 50% of their population, and Generation Z has 0.74 sleep efficiency representing less than 50% of their population.  Therefore, on average Generation X have the highest sleep efficiency, but this represents less than half of their population. 
 
-##### Sleep efficiency by exercise frequency
+
+**Analysis - Question 2: Sleep efficiency by exercise frequency**
+
 This subsection analyses sleep efficiency by exercise frequency, taking into account the generation of each individual in the dataset.
 
 ```{r Visualizing the data generation-Excercise1}
@@ -390,16 +404,18 @@ colnames(summary_by_Exfr_perc)<- c("Freq_or_Percentile","Min_Sleep_Efficiency","
 
 ```
 
-```{r summary of sleepefficiency by exercise frequency tables}
+```{r }
 
 table2<- rbind(summary_by_Exfrequency, summary_by_Exfr_perc) %>% 
-                        kbl(caption = "Summary of Sleep Efficiency by Exercise Frequency") %>%
-                        kable_classic(bootstrap_options = c("striped","hover"))
+                        kbl(align=NULL, caption = "Summary of sleep efficiency by exercise frequency") %>%
+                        kable_classic(bootstrap_options = c("striped","hover")) %>%
+		pack_rows("Frequency", 1, 4)  %>%
+		pack_rows("Percentile", 4, 4)
 table2
 
 ```
 
-
+The table above shows sleep efficiency by the three chosen frequencies of exercise:  low represents nil or 1 frequency, medium represents 2 or 3 and high greater than 3.  Sleep efficiency on average is higher with high exercise.  Exploring this further by generation, we look at the table above together with the Figure below.
 
 ```{r figure of sleep efficiency to exercise frequency by generation}
 
@@ -414,8 +430,12 @@ age_exercise_1 %>%
                           y = "Sleep efficiency")
 ```
 
+The Figure above shows by generation, which exercise frequencies are more or less popular.  Generation Alpha is the standout with low exercise which explains their low sleep efficiency, but may also be due to a lower sample number.  Generation X shows a majority of medium exercise frequency which explains the higher sleep efficiency.  The results for Millennials curiously show a clustering of over 0.8 sleep efficiency even with low exercise, which is above the average of 0.75.  This may be due to other lifestyle factors and a more resilient age.
+
 
 ### Age and alcohol consumption analysis:
+
+- Adrian Pouflis
 
 **Research Question**
 
@@ -425,7 +445,7 @@ I have two research questions:
 
 1:How do these variables impact quality of sleep independently?
 
-2:Does one variable moderate on the other? (Maybe the impact of alcohol increases with age.)
+2:How do these variables interact? Does one variable impact the magnitude of (moderate) the effect of the other? 
 
 **Analysis - Question 1**
 
@@ -458,33 +478,70 @@ summary_by_alcohol <- alcohol_data %>%
         Mean_Sleep_Efficiency = mean(Sleep.efficiency, na.rm = TRUE)
     )
 
-summary_by_alcohol
+kable(summary_by_alcohol)
 ```
 
 The relationship between alcohol and sleep efficiency is uncertain, lower doses of alcohol see higher efficiency, but the value spikes at dose 3.
 
 I both tabled age bands and charted age against efficiency:
 
-```{r Age against sleep efficiency}
-Age_bands <- cut(cleaned_data$Age, c(seq(9, 70, by = 1), Inf), include.lowest = TRUE)
+```{r Age against sleep efficiency Adrian}
+Age_bands <- cut(cleaned_data$Age, c(seq(9, 70, by = 5), Inf), include.lowest = TRUE)
 
 chart_data_frame <- aggregate(Sleep.efficiency ~ Age, cleaned_data, mean)
 
-aggregate(Sleep.efficiency ~ Age_bands, cleaned_data, mean)
+age_table <- aggregate(Sleep.efficiency ~ Age_bands, cleaned_data, mean)
+
+kable(age_table)
 
 ggplot(data=chart_data_frame,aes(x=Age, y=Sleep.efficiency)) +
                 geom_line() + 
                 scale_x_continuous(name = "Age", breaks=seq(9,69,5)) +
                         labs( title. = "Sleep efficiency by Age",
                           y = "Sleep efficiency")
+
+
 ```
+
 Sleep efficiency appears to peak from 29-59.
 
 **Analysis - Question 2**
 
-Next is to determine if one variable moderates the effectiveness of the other.
+Next is to determine if and how these variables interact.
 
-I will use moderation analysis, a variant on the linear regression already performed.
+I first chart these variables against each other to see if they interact directly.
+```{r Age against sleep efficiency}
+
+Alcohol_list <- list(
+  '-1.14690721659585'="0",
+  '-0.146907216494845'="1",
+  '0.853092783505155'="2",
+  '3'="3",
+  '4'="4",
+  '5'="5")
+
+
+#Try to plot sleep efficiency for each age at each alcohol dose, facet by alcohol dose
+Age_Alcohol_Consumption_Plot <- 
+    ggplot(cleaned_data, aes(x = Age, y = Sleep.efficiency,color=as.factor(Alcohol.consumption))) +
+    geom_line()+
+    facet_wrap(cleaned_data$Alcohol.consumption) +
+    scale_color_manual(labels = c(0,1,2,3,4,5),values = c("blue", "red","black","yellow","purple","brown")) +
+    labs( title = "Relationship between age and sleep efficiency by alcohol consumption",
+          x = "Age",
+          y = "Sleep Efficiency",
+          color = "Alcohol Dose") +
+          theme(
+          strip.background = element_blank(),
+          strip.text.x = element_blank()
+          )
+
+Age_Alcohol_Consumption_Plot
+```
+These graphs are erratic and show no clear pattern.
+
+
+Next, I will use moderation analysis, a variant on the linear regression already performed.
 ```{r Moderation analysis between alcohol consumption and age}
 # Perform regression, this time using a different formula to determine moderation effect
 Moderation_model <- lm(Sleep.efficiency ~ Age + Caffeine.consumption + Alcohol.consumption + Exercise.frequency + Gender + Age * Alcohol.consumption, data = cleaned_data)
@@ -511,9 +568,14 @@ interactions::interact_plot(Moderation_model2, pred = Age, modx = Alcohol.consum
 
 
 ```
+
 The moderation effect is stronger here, but small. 
 
+
 #### Conclusion:
+
+In the Age Generation by Exercise analysis section by Savaira, we found that Generation Alpha has the least sleep efficiency, while Generation X on average have the highest sleep efficiency.  This was also inline with the results for exercise frequency,  where Generation Alpha is the standout with low exercise and low sleep efficiency and  Generation X showing a majority of medium exercise corresponding to higher sleep efficiency.  Curiously, Millennials show a clustering of above average 0.8 sleep efficiency even with low exercise, which may be due to other lifestyle factors and a more resilient age.
+
 Using regression, Adrian found a weaker than expected link between age, alcohol consumption and several measures of sleep quality. 
 
 When comparing variables against sleep efficiency, Age seemed to have a more significant positive effect between 29-59. Alcohol seemed to have a more significant effect than regression indicated, though its influence peaked at a middling dose. He also identified a very weak moderation effect between age and alcohol consumption.
@@ -528,3 +590,9 @@ Equilibrium. (2023). *Sleep efficiency* [Data set]. Kaggle. [https://www.kaggle.
 Kocevska, D., Lysen, T. S., Dotinga, A., Koopman-Verhoeff, M. E., Luijk, M. P. C. M., Antypa, N., Biermasz, N. R., Blokstra, A., Brug, J., Burk, W. J., Comijs, H. C., Corpeleijn, E., Dashti, H. S., de Bruin, E. J., de Graaf, R., Derks, I. P. M., Dewald-Kaufmann, J. F., Elders, P. J. M., Gemke, R. J. B. J., … Tiemeier, H. (2021). Sleep characteristics across the lifespan in 1.1 million people from the Netherlands, United Kingdom and United States: a systematic review and meta-analysis. Nature Human Behaviour, 5(1), 113–122. https://doi.org/10.1038/s41562-020-00965-x
 
 Library of Congress. (n.d.). *Doing Consumer Research:A Resource Guide/Generations* (https://www.guides.loc.gov/consumer-research/market-segments/generations)
+
+Package citations:
+
+```{r Citations}
+cite_packages()
+```
